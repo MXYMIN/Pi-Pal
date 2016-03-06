@@ -21,6 +21,8 @@
         android:id="@+id/num_pad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_alignParentBottom="true">
 
         <LinearLayout
@@ -39,6 +41,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="7"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -46,6 +49,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="8"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -68,6 +72,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -75,6 +80,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -97,6 +103,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -104,6 +111,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
 
                 <Button
@@ -126,13 +134,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"/>
                 <Button
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginRight="15dp"
                     android:background="@android:color/transparent"/>
-
                 <Button
                     android:id="@+id/delete"
                     android:layout_width="wrap_content"

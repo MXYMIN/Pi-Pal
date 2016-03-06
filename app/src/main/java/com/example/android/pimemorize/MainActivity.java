@@ -38,13 +38,12 @@ public class MainActivity extends AppCompatActivity {
         String pi = readFromFile(this);
         pi = pi.replace(".", "");
         mPiArrayList.addAll(Arrays.asList(splitStringEvery(pi, 4)));
-        mPiArrayList.remove(1);
 
         mAdapter = new PiAdapter(this, mPiArrayList);
         mPiListView = (ListView) findViewById(R.id.pi_list_view);
         mPiListView.setAdapter(mAdapter);
 
-        Log.v(LOG_TAG, readFromFile(this));
+//        Log.v(LOG_TAG, readFromFile(this));
     }
 
     private String readFromFile(Context context) {
