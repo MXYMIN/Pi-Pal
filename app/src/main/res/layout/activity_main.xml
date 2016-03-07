@@ -14,7 +14,8 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/num_pad">
+        android:layout_above="@+id/num_pad"
+        android:transcriptMode="alwaysScroll">
     </ListView>
 
     <RelativeLayout
@@ -37,7 +38,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/seven"
+                    android:id="@+id/button_seven"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="7"
@@ -45,7 +46,7 @@
                     android:layout_weight="1"/>
 
                 <Button
-                    android:id="@+id/eight"
+                    android:id="@+id/button_eight"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="8"
@@ -53,7 +54,7 @@
                     android:layout_weight="1"/>
 
                 <Button
-                    android:id="@+id/nine"
+                    android:id="@+id/button_nine"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -68,7 +69,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/four"
+                    android:id="@+id/button_four"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="4"
@@ -76,7 +77,7 @@
                     android:layout_weight="1"/>
 
                 <Button
-                    android:id="@+id/five"
+                    android:id="@+id/button_five"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="5"
@@ -84,7 +85,7 @@
                     android:layout_weight="1"/>
 
                 <Button
-                    android:id="@+id/six"
+                    android:id="@+id/button_six"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -99,7 +100,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/one"
+                    android:id="@+id/button_one"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="1"
@@ -107,7 +108,7 @@
                     android:layout_weight="1"/>
 
                 <Button
-                    android:id="@+id/two"
+                    android:id="@+id/button_two"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="2"
@@ -115,7 +116,7 @@
                     android:layout_weight="1"/>
 
                 <Button
-                    android:id="@+id/three"
+                    android:id="@+id/button_three"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -130,7 +131,7 @@
                 android:orientation="horizontal">
 
                 <Button
-                    android:id="@+id/zero"
+                    android:id="@+id/button_zero"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
@@ -143,7 +144,7 @@
                     android:layout_marginRight="15dp"
                     android:background="@android:color/transparent"/>
                 <Button
-                    android:id="@+id/delete"
+                    android:id="@+id/button_delete"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="x"

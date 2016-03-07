@@ -5,7 +5,10 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,29 +18,61 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 
     private String LOG_TAG = MainActivity.class.getSimpleName();
     private PiAdapter mAdapter;
     private ListView mPiListView;
     private ArrayList<String> mPiArrayList;
+    private Button btnOne;
+    private Button btnTwo;
+    private Button btnThree;
+    private Button btnFour;
+    private Button btnFive;
+    private Button btnSix;
+    private Button btnSeven;
+    private Button btnEight;
+    private Button btnNine;
+    private Button btnZero;
+    private Button btnDelete;
+    private String mRowString = "";
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        btnOne = (Button) findViewById(R.id.button_one);
+        btnTwo = (Button) findViewById(R.id.button_two);
+        btnThree = (Button) findViewById(R.id.button_three);
+        btnFour = (Button) findViewById(R.id.button_four);
+        btnFive = (Button) findViewById(R.id.button_five);
+        btnSix = (Button) findViewById(R.id.button_six);
+        btnSeven = (Button) findViewById(R.id.button_seven);
+        btnEight = (Button) findViewById(R.id.button_eight);
+        btnNine = (Button) findViewById(R.id.button_nine);
+        btnZero = (Button) findViewById(R.id.button_zero);
+        btnDelete = (Button) findViewById(R.id.button_delete);
+
+        btnOne.setOnClickListener((View.OnClickListener) this);
+        btnTwo.setOnClickListener((View.OnClickListener) this);
+        btnThree.setOnClickListener((View.OnClickListener) this);
+        btnFour.setOnClickListener((View.OnClickListener) this);
+        btnFive.setOnClickListener((View.OnClickListener) this);
+        btnSix.setOnClickListener((View.OnClickListener) this);
+        btnSeven.setOnClickListener((View.OnClickListener) this);
+        btnEight.setOnClickListener((View.OnClickListener) this);
+        btnNine.setOnClickListener((View.OnClickListener) this);
+        btnZero.setOnClickListener((View.OnClickListener) this);
+        btnDelete.setOnClickListener((View.OnClickListener) this);
+
+
         mPiArrayList = new ArrayList<String>();
-//        mPiArrayList.add("3141");
-//        mPiArrayList.add("5926");
-//        mPiArrayList.add("5358");
-//        mPiArrayList.add("9793");
-//        mPiArrayList.add("2384");
-//        mPiArrayList.add("6264");
-//        mPiArrayList.add("3383");
 
         String pi = readFromFile(this);
         pi = pi.replace(".", "");
-        mPiArrayList.addAll(Arrays.asList(splitStringEvery(pi, 4)));
+
+        mPiArrayList.add("????");
+
 
         mAdapter = new PiAdapter(this, mPiArrayList);
         mPiListView = (ListView) findViewById(R.id.pi_list_view);
@@ -77,18 +112,91 @@ public class MainActivity extends AppCompatActivity {
         return ret;
     }
 
-    private String[] splitStringEvery(String s, int interval) {
-        int arrayLength = (int) Math.ceil(((s.length() / (double)interval)));
+    private String[] splitStringEvery(String str, int interval) {
+        int arrayLength = (int) Math.ceil(((str.length() / (double)interval)));
         String[] result = new String[arrayLength];
 
         int j = 0;
         int lastIndex = result.length - 1;
         for (int i = 0; i < lastIndex; i++) {
-            result[i] = s.substring(j, j + interval);
+            result[i] = str.substring(j, j + interval);
             j += interval;
         } //Add the last bit
-        result[lastIndex] = s.substring(j);
+        result[lastIndex] = str.substring(j);
 
         return result;
+    }
+
+    private String removeLastCharacter(String str) {
+        if (str != null && str.length() > 0) {
+            str = str.substring(0, str.length()-1);
+        }
+        return str;
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.button_one: {
+                mRowString += "1";
+                break;
+            }
+            case R.id.button_two: {
+                mRowString += "2";
+                break;
+            }
+            case R.id.button_three: {
+                mRowString += "3";
+                break;
+            }
+            case R.id.button_four: {
+                mRowString += "4";
+                break;
+            }
+            case R.id.button_five: {
+                mRowString += "5";
+                break;
+            }
+            case R.id.button_six: {
+                mRowString += "6";
+                break;
+            }
+            case R.id.button_seven: {
+                mRowString += "7";
+                break;
+            }
+            case R.id.button_eight: {
+                mRowString += "8";
+                break;
+            }
+            case R.id.button_nine: {
+                mRowString += "9";
+                break;
+            }
+            case R.id.button_zero: {
+                mRowString += "0";
+                break;
+            }
+            case R.id.button_delete: {
+                mRowString = removeLastCharacter(mRowString);
+                break;
+            }
+            default: {
+                break;
+            }
+        }
+
+        String displayRowString = mRowString;
+        while (displayRowString.length() != 4) {
+            displayRowString += "?";
+        }
+
+        mPiArrayList.set(mPiArrayList.size() - 1, displayRowString);
+        mAdapter.notifyDataSetChanged();
+
+        if (mRowString.length() == 4) {
+            mRowString = "";
+            mAdapter.add("????");
+        }
     }
 }
