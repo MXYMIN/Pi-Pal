@@ -6,8 +6,10 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -83,7 +85,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mPiListView = (ListView) findViewById(R.id.pi_list_view);
         mPiListView.setAdapter(mAdapter);
 
-//        Log.v(LOG_TAG, readPiFromFile(this));
     }
 
     private String readPiFromFile(Context context) {
@@ -211,17 +212,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
 
         // Update list item visually after user's input
-        updateListItem(mUserPiArrayList.size() - 1, displayRowString);
+        updateListItem(mAdapter.getCount() - 1, displayRowString);
 
         // Check user's input when current row is filled
         if (mRowString.length() == 4) {
             // Compare user's input with correct digits of pi
-            if (mRowString.equals(mPiDigitsArrayList.get(mUserPiArrayList.size() - 1))) {
+            if (mRowString.equals(mPiDigitsArrayList.get(mAdapter.getCount() - 1))) {
                 mAdapter.add("????");
-                mPiListView.smoothScrollToPosition(mUserPiArrayList.size());
+                mPiListView.smoothScrollToPosition(mAdapter.getCount());
             }
             else {
-                updateListItem(mUserPiArrayList.size() - 1, "XXXX");
+                updateListItem(mAdapter.getCount() - 1, "XXXX");
             }
             // Reset string for current row
             mRowString = "";
