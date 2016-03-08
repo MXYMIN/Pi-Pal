@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -23,7 +22,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private String LOG_TAG = MainActivity.class.getSimpleName();
     private PiAdapter mAdapter;
     private ListView mPiListView;
-    private ArrayList<String> mPiArrayList;
+    private ArrayList<String> mUserPiArrayList;
+    private ArrayList<String> mPiDigitsArrayList;
+
     private Button btnOne;
     private Button btnTwo;
     private Button btnThree;
@@ -35,8 +36,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnNine;
     private Button btnZero;
     private Button btnDelete;
+
+    // Keep track of digits in current row of pi
     private String mRowString = "";
-    private ArrayList<String> mPiDigitsArrayList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,36 +56,37 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnZero = (Button) findViewById(R.id.button_zero);
         btnDelete = (Button) findViewById(R.id.button_delete);
 
-        btnOne.setOnClickListener((View.OnClickListener) this);
-        btnTwo.setOnClickListener((View.OnClickListener) this);
-        btnThree.setOnClickListener((View.OnClickListener) this);
-        btnFour.setOnClickListener((View.OnClickListener) this);
-        btnFive.setOnClickListener((View.OnClickListener) this);
-        btnSix.setOnClickListener((View.OnClickListener) this);
-        btnSeven.setOnClickListener((View.OnClickListener) this);
-        btnEight.setOnClickListener((View.OnClickListener) this);
-        btnNine.setOnClickListener((View.OnClickListener) this);
-        btnZero.setOnClickListener((View.OnClickListener) this);
-        btnDelete.setOnClickListener((View.OnClickListener) this);
+        // Set same on click listener for all buttons
+        btnOne.setOnClickListener(this);
+        btnTwo.setOnClickListener(this);
+        btnThree.setOnClickListener(this);
+        btnFour.setOnClickListener(this);
+        btnFive.setOnClickListener(this);
+        btnSix.setOnClickListener(this);
+        btnSeven.setOnClickListener(this);
+        btnEight.setOnClickListener(this);
+        btnNine.setOnClickListener(this);
+        btnZero.setOnClickListener(this);
+        btnDelete.setOnClickListener(this);
 
-
-        mPiArrayList = new ArrayList<String>();
-
-        String pi = readFromFile(this);
+        // Get pi and store digits in groups of x digits in an array list
+        String pi = readPiFromFile(this);
         pi = pi.replace(".", "");
         mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(splitStringEvery(pi, 4)));
 
-        mPiArrayList.add("????");
+        // Initialize the user's pi array list
+        mUserPiArrayList = new ArrayList<String>();
+        mUserPiArrayList.add("????");
 
-
-        mAdapter = new PiAdapter(this, mPiArrayList);
+        // Initialize the adapter and listview
+        mAdapter = new PiAdapter(this, mUserPiArrayList);
         mPiListView = (ListView) findViewById(R.id.pi_list_view);
         mPiListView.setAdapter(mAdapter);
 
-//        Log.v(LOG_TAG, readFromFile(this));
+//        Log.v(LOG_TAG, readPiFromFile(this));
     }
 
-    private String readFromFile(Context context) {
+    private String readPiFromFile(Context context) {
 
         String ret = "";
 
@@ -115,35 +118,42 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private String[] splitStringEvery(String str, int interval) {
+
+        // Get final array length and initialize return string array
         int arrayLength = (int) Math.ceil(((str.length() / (double)interval)));
         String[] result = new String[arrayLength];
 
+        // j keeps track of starting index in string for new element of array
         int j = 0;
         int lastIndex = result.length - 1;
         for (int i = 0; i < lastIndex; i++) {
             result[i] = str.substring(j, j + interval);
             j += interval;
-        } //Add the last bit
+        }
+        // Add the last bit
         result[lastIndex] = str.substring(j);
 
         return result;
     }
 
     private String removeLastCharacter(String str) {
+        // Check for null and empty string
         if (str != null && str.length() > 0) {
-            str = str.substring(0, str.length()-1);
+            str = str.substring(0, str.length() - 1);
         }
         return str;
     }
 
     private void updateListItem(int index, String str) {
-        mPiArrayList.set(index, str);
+        mUserPiArrayList.set(index, str);
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View view) {
-        mPiListView.smoothScrollToPosition(mPiArrayList.size());
+
+        mPiListView.smoothScrollToPosition(mUserPiArrayList.size());
+
         switch (view.getId()) {
             case R.id.button_one: {
                 mRowString += "1";
@@ -194,21 +204,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         }
 
+        // String that is being displayed with ending '?'s
         String displayRowString = mRowString;
         while (displayRowString.length() != 4) {
             displayRowString += "?";
         }
 
-        updateListItem(mPiArrayList.size() - 1, displayRowString);
+        // Update list item visually after user's input
+        updateListItem(mUserPiArrayList.size() - 1, displayRowString);
 
+        // Check user's input when current row is filled
         if (mRowString.length() == 4) {
-            if (mRowString.equals(mPiDigitsArrayList.get(mPiArrayList.size() - 1))) {
+            // Compare user's input with correct digits of pi
+            if (mRowString.equals(mPiDigitsArrayList.get(mUserPiArrayList.size() - 1))) {
                 mAdapter.add("????");
-                mPiListView.smoothScrollToPosition(mPiArrayList.size());
+                mPiListView.smoothScrollToPosition(mUserPiArrayList.size());
             }
             else {
-                updateListItem(mPiArrayList.size() - 1, "XXXX");
+                updateListItem(mUserPiArrayList.size() - 1, "XXXX");
             }
+            // Reset string for current row
             mRowString = "";
         }
     }
