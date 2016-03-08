@@ -36,6 +36,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Button btnZero;
     private Button btnDelete;
     private String mRowString = "";
+    private ArrayList<String> mPiDigitsArrayList;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,6 +71,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         String pi = readFromFile(this);
         pi = pi.replace(".", "");
+        mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(splitStringEvery(pi, 4)));
 
         mPiArrayList.add("????");
 
@@ -134,6 +136,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         return str;
     }
 
+    private void updateListItem(int index, String str) {
+        mPiArrayList.set(index, str);
+        mAdapter.notifyDataSetChanged();
+    }
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -191,12 +198,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             displayRowString += "?";
         }
 
-        mPiArrayList.set(mPiArrayList.size() - 1, displayRowString);
-        mAdapter.notifyDataSetChanged();
+        updateListItem(mPiArrayList.size() - 1, displayRowString);
 
         if (mRowString.length() == 4) {
+            if (mRowString.equals(mPiDigitsArrayList.get(mPiArrayList.size() - 1))) {
+                mAdapter.add("????");
+            }
+            else {
+                updateListItem(mPiArrayList.size() - 1, "XXXX");
+            }
             mRowString = "";
-            mAdapter.add("????");
         }
     }
 }
