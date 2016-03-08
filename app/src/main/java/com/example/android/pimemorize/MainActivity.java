@@ -143,6 +143,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View view) {
+        mPiListView.smoothScrollToPosition(mPiArrayList.size());
         switch (view.getId()) {
             case R.id.button_one: {
                 mRowString += "1";
@@ -203,6 +204,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if (mRowString.length() == 4) {
             if (mRowString.equals(mPiDigitsArrayList.get(mPiArrayList.size() - 1))) {
                 mAdapter.add("????");
+                mPiListView.smoothScrollToPosition(mPiArrayList.size());
             }
             else {
                 updateListItem(mPiArrayList.size() - 1, "XXXX");

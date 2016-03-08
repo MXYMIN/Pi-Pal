@@ -14,8 +14,8 @@
         android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/num_pad"
-        android:transcriptMode="alwaysScroll">
+        android:layout_above="@+id/num_pad">
+        <!--android:transcriptMode="alwaysScroll"-->
     </ListView>
 
     <RelativeLayout
