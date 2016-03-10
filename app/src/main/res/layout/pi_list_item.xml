@@ -14,4 +14,5 @@
     android:fontFamily="monospace"
     android:text="3141"
     android:textAlignment="center"
+    android:gravity="center_vertical"
     android:textSize="52sp"/>

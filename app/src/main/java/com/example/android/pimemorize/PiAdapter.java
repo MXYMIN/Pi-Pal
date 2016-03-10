@@ -43,6 +43,12 @@ public class PiAdapter extends ArrayAdapter<String> {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.pi_list_item, parent, false);
         }
 
+        // Set list item height programmatically to only show 3 items on screen at a time
+        int listItemHeight = parent.getHeight() / 3;
+        ViewGroup.LayoutParams params = convertView.getLayoutParams();
+        params.height = listItemHeight;
+        convertView.requestLayout();
+
         // Lookup view for data population
         TextView piDigits = (TextView) convertView.findViewById(R.id.pi_row_digits_text_view);
 
