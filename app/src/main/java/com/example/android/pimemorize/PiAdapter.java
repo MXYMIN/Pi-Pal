@@ -48,6 +48,8 @@ public class PiAdapter extends ArrayAdapter<String> {
 
         // Populate the data into the template view using the data object
         piDigits.setText(row);
+
+        // Set text colour
         if (row.equals("XXXX")) {
             piDigits.setTextColor(mContext.getResources().getColor(R.color.colorError));
         }
