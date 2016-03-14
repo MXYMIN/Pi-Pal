@@ -10,18 +10,6 @@ import android.widget.Button;
 
 public class NumPadFragment extends Fragment implements View.OnClickListener{
 
-    private Button btnOne;
-    private Button btnTwo;
-    private Button btnThree;
-    private Button btnFour;
-    private Button btnFive;
-    private Button btnSix;
-    private Button btnSeven;
-    private Button btnEight;
-    private Button btnNine;
-    private Button btnZero;
-    private Button btnDelete;
-
     // Keep track of digits in current row of pi
     private String mRowString = "";
 
@@ -37,17 +25,18 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_num_pad, container, false);
 
-        btnOne = (Button) view.findViewById(R.id.button_one);
-        btnTwo = (Button) view.findViewById(R.id.button_two);
-        btnThree = (Button) view.findViewById(R.id.button_three);
-        btnFour = (Button) view.findViewById(R.id.button_four);
-        btnFive = (Button) view.findViewById(R.id.button_five);
-        btnSix = (Button) view.findViewById(R.id.button_six);
-        btnSeven = (Button) view.findViewById(R.id.button_seven);
-        btnEight = (Button) view.findViewById(R.id.button_eight);
-        btnNine = (Button) view.findViewById(R.id.button_nine);
-        btnZero = (Button) view.findViewById(R.id.button_zero);
-        btnDelete = (Button) view.findViewById(R.id.button_delete);
+        // Initialize buttons
+        Button btnOne = (Button) view.findViewById(R.id.button_one);
+        Button btnTwo = (Button) view.findViewById(R.id.button_two);
+        Button btnThree = (Button) view.findViewById(R.id.button_three);
+        Button btnFour = (Button) view.findViewById(R.id.button_four);
+        Button btnFive = (Button) view.findViewById(R.id.button_five);
+        Button btnSix = (Button) view.findViewById(R.id.button_six);
+        Button btnSeven = (Button) view.findViewById(R.id.button_seven);
+        Button btnEight = (Button) view.findViewById(R.id.button_eight);
+        Button btnNine = (Button) view.findViewById(R.id.button_nine);
+        Button btnZero = (Button) view.findViewById(R.id.button_zero);
+        Button btnDelete = (Button) view.findViewById(R.id.button_delete);
 
         // Set same on click listener for all buttons
         btnOne.setOnClickListener(this);
@@ -131,6 +120,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
                 break;
             }
         }
+        // Notify activity of new row string
         mCallback.onNumberClicked(mRowString);
         if (mRowString.length() == 4) {
             // Reset string for current row
