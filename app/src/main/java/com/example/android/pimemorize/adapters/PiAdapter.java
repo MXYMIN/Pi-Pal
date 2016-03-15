@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.R;
 import com.example.android.pimemorize.helpers.StringHelper;
 
@@ -63,7 +64,7 @@ public class PiAdapter extends ArrayAdapter<String> {
         piDigits.setText(spannedRow);
 
         // Set text colour
-        if (row.equals("X X X X")) {
+        if (row.equals(Constants.ERROR_ROW)) {
             piDigits.setTextColor(mContext.getResources().getColor(R.color.colorError));
         }
         else {

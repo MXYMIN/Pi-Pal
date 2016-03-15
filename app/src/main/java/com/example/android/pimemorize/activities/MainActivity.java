@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.fragments.NumPadFragment;
 import com.example.android.pimemorize.adapters.PiAdapter;
 import com.example.android.pimemorize.R;
@@ -117,7 +118,7 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
             }
             else {
                 // Show error in row
-                updateListItem(mAdapter.getCount() - 1, "X X X X");
+                updateListItem(mAdapter.getCount() - 1, Constants.ERROR_ROW);
             }
         }
     }
