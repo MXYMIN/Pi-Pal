@@ -1,6 +1,8 @@
 package com.example.android.pimemorize.adapters;
 
 import android.content.Context;
+import android.text.Html;
+import android.text.Spanned;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
 import com.example.android.pimemorize.R;
+import com.example.android.pimemorize.helpers.StringHelper;
 
 import java.util.ArrayList;
 
@@ -55,10 +58,12 @@ public class PiAdapter extends ArrayAdapter<String> {
         TextView piDigits = (TextView) convertView.findViewById(R.id.pi_row_digits_text_view);
 
         // Populate the data into the template view using the data object
-        piDigits.setText(row);
+        // Using Spanned object to accept html attributes
+        Spanned spannedRow = Html.fromHtml(StringHelper.boldFirstOccurenceOfSubstring(row, "?"));
+        piDigits.setText(spannedRow);
 
         // Set text colour
-        if (row.equals("XXXX")) {
+        if (row.equals("X X X X")) {
             piDigits.setTextColor(mContext.getResources().getColor(R.color.colorError));
         }
         else {

@@ -1,5 +1,7 @@
 package com.example.android.pimemorize.helpers;
 
+import java.util.regex.Pattern;
+
 /**
  * Created by michael on 2016-03-13.
  */
@@ -36,6 +38,13 @@ public class StringHelper {
         if (str != null && str.length() > 0) {
             // Regex to replace any character that has a following character '.(?=).' with that matched character '$0' and a following space
             str = str.replaceAll(".(?=.)", "$0 ");
+        }
+        return str;
+    }
+
+    public static String boldFirstOccurenceOfSubstring(String str, String substring) {
+        if (str != null && str.length() > 0) {
+            str = str.replaceFirst(Pattern.quote(substring), "<b>" + substring + "</b>");
         }
         return str;
     }

@@ -103,17 +103,20 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
             displayRowString = displayRowString.replaceFirst(" ", ".");
         }
 
+
         // Update list item visually after user's input
         updateListItem(mAdapter.getCount() - 1, displayRowString);
 
-        // Check user's input when current row is filled
+        // Validate user's input when current row is filled
         if (rowString.length() == 4) {
             // Compare user's input with correct digits of pi
             if (rowString.equals(mPiDigitsArrayList.get(mAdapter.getCount() - 1))) {
+                // Add a new placeholder row and smoothly scroll to last list item
                 mAdapter.add("? ? ? ?");
                 mPiListView.smoothScrollToPosition(mAdapter.getCount());
             }
             else {
+                // Show error in row
                 updateListItem(mAdapter.getCount() - 1, "X X X X");
             }
         }
