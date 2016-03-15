@@ -1,4 +1,4 @@
-package com.example.android.pimemorize;
+package com.example.android.pimemorize.activities;
 
 import android.content.Context;
 import android.content.res.AssetManager;
@@ -6,6 +6,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
+
+import com.example.android.pimemorize.fragments.NumPadFragment;
+import com.example.android.pimemorize.adapters.PiAdapter;
+import com.example.android.pimemorize.R;
+import com.example.android.pimemorize.helpers.StringHelper;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -15,7 +20,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MainActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener{
+public class MainActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener {
 
     private String LOG_TAG = MainActivity.class.getSimpleName();
     private PiAdapter mAdapter;
@@ -34,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
 
         // Initialize the user's pi array list
         mUserPiArrayList = new ArrayList<String>();
-        mUserPiArrayList.add("????");
+        mUserPiArrayList.add("? ? ? ?");
 
         // Initialize the adapter and listview
         mAdapter = new PiAdapter(this, mUserPiArrayList);
@@ -90,6 +95,9 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
             displayRowString += "?";
         }
 
+        // Add spaces in between characters for the string to be displayed
+        displayRowString = StringHelper.addSpacesInBetweenCharacters(displayRowString);
+
         // Update list item visually after user's input
         updateListItem(mAdapter.getCount() - 1, displayRowString);
 
@@ -97,14 +105,13 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         if (rowString.length() == 4) {
             // Compare user's input with correct digits of pi
             if (rowString.equals(mPiDigitsArrayList.get(mAdapter.getCount() - 1))) {
-                mAdapter.add("????");
+                mAdapter.add("? ? ? ?");
                 mPiListView.smoothScrollToPosition(mAdapter.getCount());
             }
             else {
-                updateListItem(mAdapter.getCount() - 1, "XXXX");
+                updateListItem(mAdapter.getCount() - 1, "X X X X");
             }
         }
-
     }
 
 }

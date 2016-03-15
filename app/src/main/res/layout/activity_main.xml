@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.android.pimemorize.MainActivity">
+    tools:context=".activities.MainActivity">
 
     <ListView
         android:id="@+id/pi_list_view"
@@ -19,7 +19,7 @@
 
     <fragment
         android:id="@+id/num_pad"
-        android:name="com.example.android.pimemorize.NumPadFragment"
+        android:name="com.example.android.pimemorize.fragments.NumPadFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:layout="@layout/fragment_num_pad"

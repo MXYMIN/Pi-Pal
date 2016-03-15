@@ -1,4 +1,4 @@
-package com.example.android.pimemorize;
+package com.example.android.pimemorize.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,6 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+
+import com.example.android.pimemorize.R;
+import com.example.android.pimemorize.helpers.StringHelper;
 
 public class NumPadFragment extends Fragment implements View.OnClickListener{
 
