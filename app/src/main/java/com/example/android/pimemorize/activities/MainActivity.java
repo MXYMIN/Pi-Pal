@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
 
         // Initialize the user's pi array list
         mUserPiArrayList = new ArrayList<String>();
-        mUserPiArrayList.add("? ? ? ?");
+        mUserPiArrayList.add("?.? ? ?");
 
         // Initialize the adapter and listview
         mAdapter = new PiAdapter(this, mUserPiArrayList);
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     @Override
     public void onNumberClicked(String rowString) {
 
-        mPiListView.smoothScrollToPosition(mUserPiArrayList.size());
+        mPiListView.smoothScrollToPosition(mAdapter.getCount());
 
         // String that is being displayed with ending '?'s
         String displayRowString = rowString;
@@ -97,6 +97,11 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
 
         // Add spaces in between characters for the string to be displayed
         displayRowString = StringHelper.addSpacesInBetweenCharacters(displayRowString);
+
+        // Add the decimal point for the first line '3.141'
+        if (mAdapter.getCount() == 1) {
+            displayRowString = displayRowString.replaceFirst(" ", ".");
+        }
 
         // Update list item visually after user's input
         updateListItem(mAdapter.getCount() - 1, displayRowString);
