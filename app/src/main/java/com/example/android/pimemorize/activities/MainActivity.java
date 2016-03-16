@@ -88,6 +88,11 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     @Override
     public void onNumberClicked(String rowString) {
 
+        // Reset flag for error row to declare no error
+        // Removes error display on row after user presses a button
+        mAdapter.setInvalidRow(false);
+
+        // Smoothly scroll to bottom of list
         mPiListView.smoothScrollToPosition(mAdapter.getCount());
 
         // String that is being displayed with ending '?'s
@@ -104,7 +109,6 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
             displayRowString = displayRowString.replaceFirst(" ", ".");
         }
 
-
         // Update list item visually after user's input
         updateListItem(mAdapter.getCount() - 1, displayRowString);
 
@@ -118,7 +122,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
             }
             else {
                 // Show error in row
-                updateListItem(mAdapter.getCount() - 1, Constants.ERROR_ROW);
+                mAdapter.setInvalidRow(true);
+                updateListItem(mAdapter.getCount() - 1, displayRowString);
             }
         }
     }

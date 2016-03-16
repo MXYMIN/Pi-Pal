@@ -20,12 +20,16 @@ import java.util.ArrayList;
  */
 public class PiAdapter extends ArrayAdapter<String> {
 
+    // Index of last added item
     private int lastAdded;
     private Context mContext;
+    private boolean mIsInvalidRow;
+
     public PiAdapter(Context context, ArrayList<String> piRows) {
         super(context, 0, piRows);
         lastAdded = piRows.size() - 1;
         mContext = context;
+        mIsInvalidRow = false;
 
     }
 
@@ -63,14 +67,20 @@ public class PiAdapter extends ArrayAdapter<String> {
         Spanned spannedRow = Html.fromHtml(StringHelper.boldFirstOccurenceOfSubstring(row, "?"));
         piDigits.setText(spannedRow);
 
-        // Set text colour
-        if (row.equals(Constants.ERROR_ROW)) {
+        // Set text colour depending on status of the row
+        // Criteria include current row, validity
+
+        // Display row as error only if invalid row flag is set and it is the last item in the list
+        // Need to check position of list item or else all text would change since getView is called whenever an item is displayed on screen
+        if (mIsInvalidRow && position == getCount() - 1) {
             piDigits.setTextColor(mContext.getResources().getColor(R.color.colorError));
         }
         else {
+            // Case current row
             if (position == lastAdded) {
                 piDigits.setTextColor(mContext.getResources().getColor(R.color.colorCurrentRow));
             }
+            // Case old row
             else {
                 piDigits.setTextColor(mContext.getResources().getColor(R.color.colorOldRow));
             }
@@ -86,4 +96,8 @@ public class PiAdapter extends ArrayAdapter<String> {
         lastAdded = index;
         super.insert(str, index);
     };
+
+    public void setInvalidRow(boolean isInvalidRow) {
+        mIsInvalidRow = isInvalidRow;
+    }
 }
