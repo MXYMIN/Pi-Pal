@@ -1,23 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".activities.MainActivity">
 
-    <include layout="@layout/list_header"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:elevation="4dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <include
         android:id="@+id/top_list_header"
-        android:layout_alignParentTop="true">
+        layout="@layout/list_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/my_toolbar">
     </include>
 
     <ListView
         android:id="@+id/pi_list_view"
-        android:layout_below="@+id/top_list_header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/num_pad">
+        android:layout_above="@+id/num_pad"
+        android:layout_below="@+id/top_list_header">
     </ListView>
 
     <fragment
@@ -25,9 +36,9 @@
         android:name="com.example.android.pimemorize.fragments.NumPadFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout="@layout/fragment_num_pad"
         android:layout_alignParentBottom="true"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        tools:layout="@layout/fragment_num_pad">
     </fragment>
 
 </RelativeLayout>
