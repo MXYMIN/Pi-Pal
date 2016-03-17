@@ -5,7 +5,9 @@ import android.content.res.AssetManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.android.pimemorize.fragments.NumPadFragment;
 import com.example.android.pimemorize.adapters.PiAdapter;
@@ -27,10 +29,16 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     private ListView mPiListView;
     private ArrayList<String> mUserPiArrayList;
     private ArrayList<String> mPiDigitsArrayList;
+    private TextView mCurrentRowTextView;
+    private TextView mDigitsCorrectTextView;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        View mHeaderLayout = findViewById(R.id.top_list_header);
+        mCurrentRowTextView = (TextView) mHeaderLayout.findViewById(R.id.current_row_text_view);
+        mDigitsCorrectTextView = (TextView) mHeaderLayout.findViewById(R.id.digits_correct_text_view);
 
         // Get pi and store digits in groups of x digits in an array list
         String pi = readPiFromFile(this);
@@ -118,6 +126,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 // Add a new placeholder row and smoothly scroll to last list item
                 mAdapter.add("? ? ? ?");
                 mPiListView.smoothScrollToPosition(mAdapter.getCount());
+                mCurrentRowTextView.setText("current row: " + mAdapter.getCount());
+                mDigitsCorrectTextView.setText("digits correct: " + (mAdapter.getCount() - 1) * 4);
             }
             else {
                 // Show error in row
