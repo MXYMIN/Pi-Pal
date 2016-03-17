@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
-import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.fragments.NumPadFragment;
 import com.example.android.pimemorize.adapters.PiAdapter;
 import com.example.android.pimemorize.R;

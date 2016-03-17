@@ -71,7 +71,7 @@ public class PiAdapter extends ArrayAdapter<String> {
         // Criteria include current row, validity
 
         // Display row as error only if invalid row flag is set and it is the last item in the list
-        // Need to check position of list item or else all text would change since getView is called whenever an item is displayed on screen
+        // Check position of list item else all text would (getView called on multiple items)
         if (mIsInvalidRow && position == getCount() - 1) {
             piDigits.setTextColor(mContext.getResources().getColor(R.color.colorError));
         }

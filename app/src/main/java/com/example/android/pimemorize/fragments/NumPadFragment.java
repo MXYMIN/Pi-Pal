@@ -19,7 +19,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
     OnNumberClickedListener mCallback;
 
     public interface OnNumberClickedListener {
-        public void onNumberClicked(String rowString);
+        void onNumberClicked(String rowString);
     }
 
     @Override
