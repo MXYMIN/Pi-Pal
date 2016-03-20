@@ -42,9 +42,19 @@ public class StringHelper {
         return str;
     }
 
-    public static String boldFirstOccurenceOfSubstring(String str, String substring) {
+    public static String boldFirstOccurrenceOfSubstring(String str, String substring) {
         if (str != null && str.length() > 0) {
             str = str.replaceFirst(Pattern.quote(substring), "<b>" + substring + "</b>");
+        }
+        return str;
+    }
+
+    public static String generateMaskedRowString(String str, int numberOfDigits) {
+        if (str != null) {
+            while (str.length() != numberOfDigits) {
+                str += "?";
+            }
+            str = addSpacesInBetweenCharacters(str);
         }
         return str;
     }

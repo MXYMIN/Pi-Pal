@@ -1,7 +1,9 @@
 package com.example.android.pimemorize.fragments;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +17,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
 
     // Keep track of digits in current row of pi
     private String mRowString = "";
-
+    private int mDigitsPerRow;
     OnNumberClickedListener mCallback;
 
     public interface OnNumberClickedListener {
@@ -53,6 +55,9 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         btnNine.setOnClickListener(this);
         btnZero.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
+
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mDigitsPerRow = Integer.parseInt(sharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
 
         return view;
     }
@@ -125,7 +130,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         }
         // Notify activity of new row string
         mCallback.onNumberClicked(mRowString);
-        if (mRowString.length() == 4) {
+        if (mRowString.length() == mDigitsPerRow) {
             // Reset string for current row
             mRowString = "";
         }

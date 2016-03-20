@@ -1,13 +1,17 @@
 package com.example.android.pimemorize.activities;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -24,6 +28,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.regex.Pattern;
 
 public class MainActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener {
 
@@ -34,6 +39,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     private ArrayList<String> mPiDigitsArrayList;
     private TextView mCurrentRowTextView;
     private TextView mDigitsCorrectTextView;
+    private int mDigitsPerRow;
+    private String mNewRowString;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,14 +53,20 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         mCurrentRowTextView = (TextView) mHeaderLayout.findViewById(R.id.current_row_text_view);
         mDigitsCorrectTextView = (TextView) mHeaderLayout.findViewById(R.id.digits_correct_text_view);
 
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        mDigitsPerRow = Integer.parseInt(sharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
+
+        mNewRowString = StringHelper.generateMaskedRowString("", mDigitsPerRow);
+
         // Get pi and store digits in groups of x digits in an array list
         String pi = readPiFromFile(this);
         pi = pi.replace(".", "");
-        mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(pi, 4)));
+        mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(pi, mDigitsPerRow)));
 
         // Initialize the user's pi array list
         mUserPiArrayList = new ArrayList<String>();
-        mUserPiArrayList.add("?.? ? ?");
+        // Add first masked row with the decimal ex: ?.? ? ?
+        mUserPiArrayList.add(mNewRowString.replaceFirst(Pattern.quote(" "), "."));
 
         // Initialize the adapter and listview
         mAdapter = new PiAdapter(this, mUserPiArrayList);
@@ -106,6 +119,18 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     }
 
     @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent i = new Intent(this, UserPreferencesActivity.class);
+                startActivity(i);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
     public void onNumberClicked(String rowString) {
 
         // Reset flag for error row to declare no error
@@ -115,14 +140,11 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         // Smoothly scroll to bottom of list
         mPiListView.smoothScrollToPosition(mAdapter.getCount());
 
-        // String that is being displayed with ending '?'s
+        // String that is being displayed with trailing '?'s
         String displayRowString = rowString;
-        while (displayRowString.length() != 4) {
-            displayRowString += "?";
-        }
 
-        // Add spaces in between characters for the string to be displayed
-        displayRowString = StringHelper.addSpacesInBetweenCharacters(displayRowString);
+        // Generate the masked string with spaces in between
+        displayRowString = StringHelper.generateMaskedRowString(displayRowString, mDigitsPerRow);
 
         // Add the decimal point for the first line '3.141'
         if (mAdapter.getCount() == 1) {
@@ -133,14 +155,14 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         updateListItem(mAdapter.getCount() - 1, displayRowString);
 
         // Validate user's input when current row is filled
-        if (rowString.length() == 4) {
+        if (rowString.length() == mDigitsPerRow) {
             // Compare user's input with correct digits of pi
             if (rowString.equals(mPiDigitsArrayList.get(mAdapter.getCount() - 1))) {
                 // Add a new placeholder row and smoothly scroll to last list item
-                mAdapter.add("? ? ? ?");
+                mAdapter.add(mNewRowString);
                 mPiListView.smoothScrollToPosition(mAdapter.getCount());
                 mCurrentRowTextView.setText("current row: " + mAdapter.getCount());
-                mDigitsCorrectTextView.setText("digits correct: " + (mAdapter.getCount() - 1) * 4);
+                mDigitsCorrectTextView.setText("digits correct: " + (mAdapter.getCount() - 1) * mDigitsPerRow);
             }
             else {
                 // Show error in row

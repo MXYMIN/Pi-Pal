@@ -64,7 +64,7 @@ public class PiAdapter extends ArrayAdapter<String> {
 
         // Populate the data into the template view using the data object
         // Using Spanned object to accept html attributes
-        Spanned spannedRow = Html.fromHtml(StringHelper.boldFirstOccurenceOfSubstring(row, "?"));
+        Spanned spannedRow = Html.fromHtml(StringHelper.boldFirstOccurrenceOfSubstring(row, "?"));
         piDigits.setText(spannedRow);
 
         // Set text colour depending on status of the row

@@ -10,4 +10,5 @@
     <color name="colorCurrentRow">#00796B</color>
     <color name="colorOldRow">#727272</color>
     <color name="colorError">#C62828</color>
+    <color name="colorTitleText">#ffffffff</color>
 </resources>
