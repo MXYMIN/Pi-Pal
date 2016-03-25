@@ -129,6 +129,9 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 Intent intent = new Intent(this, UserPreferencesActivity.class);
                 startActivity(intent);
                 return true;
+            case R.id.action_refresh:
+                initializePiList();
+                return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
