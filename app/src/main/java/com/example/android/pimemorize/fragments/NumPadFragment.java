@@ -59,7 +59,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         btnDelete.setOnClickListener(this);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
+        mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW));
 
         return view;
     }
@@ -70,7 +70,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
 
         // Update number of digits per row if it was changed in settings and clear current row string
         if (Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW)) != mDigitsPerRow) {
-            mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
+            mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW));
             mRowString = "";
         }
     }
@@ -149,4 +149,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         }
     }
 
+    public void clearRowString() {
+        mRowString = "";
+    }
 }

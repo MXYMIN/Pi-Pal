@@ -131,6 +131,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 return true;
             case R.id.action_refresh:
                 initializePiList();
+                NumPadFragment numPadFrag = (NumPadFragment) getSupportFragmentManager().findFragmentById(R.id.num_pad);
+                numPadFrag.clearRowString();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
