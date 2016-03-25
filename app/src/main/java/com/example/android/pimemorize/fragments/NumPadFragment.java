@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.R;
 import com.example.android.pimemorize.helpers.StringHelper;
 
@@ -19,6 +20,7 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
     private String mRowString = "";
     private int mDigitsPerRow;
     OnNumberClickedListener mCallback;
+    private SharedPreferences mSharedPrefs;
 
     public interface OnNumberClickedListener {
         void onNumberClicked(String rowString);
@@ -56,10 +58,21 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         btnZero.setOnClickListener(this);
         btnDelete.setOnClickListener(this);
 
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-        mDigitsPerRow = Integer.parseInt(sharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
+        mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
 
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+
+        // Update number of digits per row if it was changed in settings and clear current row string
+        if (Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW)) != mDigitsPerRow) {
+            mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
+            mRowString = "";
+        }
     }
 
     @Override

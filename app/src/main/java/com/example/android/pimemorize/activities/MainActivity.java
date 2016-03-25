@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.fragments.NumPadFragment;
 import com.example.android.pimemorize.adapters.PiAdapter;
 import com.example.android.pimemorize.R;
@@ -41,6 +42,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     private TextView mDigitsCorrectTextView;
     private int mDigitsPerRow;
     private String mNewRowString;
+    private String mPi;
+    private SharedPreferences mSharedPrefs;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,29 +52,30 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
+        // Get references to UI elements
         View mHeaderLayout = findViewById(R.id.top_list_header);
         mCurrentRowTextView = (TextView) mHeaderLayout.findViewById(R.id.current_row_text_view);
         mDigitsCorrectTextView = (TextView) mHeaderLayout.findViewById(R.id.digits_correct_text_view);
-
-        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
-        mDigitsPerRow = Integer.parseInt(sharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), "4"));
-
-        mNewRowString = StringHelper.generateMaskedRowString("", mDigitsPerRow);
-
-        // Get pi and store digits in groups of x digits in an array list
-        String pi = readPiFromFile(this);
-        pi = pi.replace(".", "");
-        mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(pi, mDigitsPerRow)));
-
-        // Initialize the user's pi array list
-        mUserPiArrayList = new ArrayList<String>();
-        // Add first masked row with the decimal ex: ?.? ? ?
-        mUserPiArrayList.add(mNewRowString.replaceFirst(Pattern.quote(" "), "."));
-
-        // Initialize the adapter and listview
-        mAdapter = new PiAdapter(this, mUserPiArrayList);
         mPiListView = (ListView) findViewById(R.id.pi_list_view);
-        mPiListView.setAdapter(mAdapter);
+
+        mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+
+        // Read pi from file and remove decimal for easier string groupings
+        mPi = readPiFromFile(this);
+        mPi = mPi.replace(".", "");
+
+        initializePiList();
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // If digits per row setting was modified, reinitialize the pi list
+        if (Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW)) != mDigitsPerRow) {
+            initializePiList();
+        }
 
     }
 
@@ -122,8 +126,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_settings:
-                Intent i = new Intent(this, UserPreferencesActivity.class);
-                startActivity(i);
+                Intent intent = new Intent(this, UserPreferencesActivity.class);
+                startActivity(intent);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -170,6 +174,24 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 updateListItem(mAdapter.getCount() - 1, displayRowString);
             }
         }
+    }
+
+    private void initializePiList() {
+        // Update digits per row to be displayed
+        mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW));
+        mNewRowString = StringHelper.generateMaskedRowString("", mDigitsPerRow);
+
+        // Get pi and store digits in groups of x digits in an array list depending on user settings
+        mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(mPi, mDigitsPerRow)));
+
+        // Initialize the user's pi array list
+        mUserPiArrayList = new ArrayList<String>();
+        // Add first masked row with the decimal ex: ?.? ? ?
+        mUserPiArrayList.add(mNewRowString.replaceFirst(Pattern.quote(" "), "."));
+
+        // Initialize the adapter and listview
+        mAdapter = new PiAdapter(this, mUserPiArrayList);
+        mPiListView.setAdapter(mAdapter);
     }
 
 }
