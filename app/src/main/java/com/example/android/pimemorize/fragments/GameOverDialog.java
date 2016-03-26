@@ -14,12 +14,15 @@ import com.example.android.pimemorize.R;
 
 public class GameOverDialog extends DialogFragment {
 
+    private static final String KEY_FINAL_DIGITS = "KEY_FINAL_DIGITS";
+    private static final String KEY_FINAL_ROW = "KEY_FINAL_ROW";
+
     public static GameOverDialog newInstance(int finalDigits, int finalRow) {
         GameOverDialog gameOverDialog = new GameOverDialog();
 
         Bundle args = new Bundle();
-        args.putInt("FINAL_DIGITS", finalDigits);
-        args.putInt("FINAL_ROW", finalRow);
+        args.putInt(KEY_FINAL_DIGITS, finalDigits);
+        args.putInt(KEY_FINAL_ROW, finalRow);
         gameOverDialog.setArguments(args);
 
         return gameOverDialog;
@@ -39,8 +42,8 @@ public class GameOverDialog extends DialogFragment {
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
 
-        finalDigitsTextView.setText(Integer.toString(getArguments().getInt("FINAL_DIGITS")));
-        finalRowTextView.setText(Integer.toString(getArguments().getInt("FINAL_ROW")));
+        finalDigitsTextView.setText(Integer.toString(getArguments().getInt(KEY_FINAL_DIGITS)));
+        finalRowTextView.setText(Integer.toString(getArguments().getInt(KEY_FINAL_ROW)));
 
         Button reviewButton = (Button) view.findViewById(R.id.review_button);
         reviewButton.setOnClickListener(new View.OnClickListener() {

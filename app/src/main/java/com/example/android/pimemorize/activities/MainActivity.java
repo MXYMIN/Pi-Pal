@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     private String mNewRowString;
     private String mPi;
     private SharedPreferences mSharedPrefs;
+    private NumPadFragment mNumPadFrag;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +61,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         mCurrentRowTextView = (TextView) mHeaderLayout.findViewById(R.id.current_row_text_view);
         mDigitsCorrectTextView = (TextView) mHeaderLayout.findViewById(R.id.digits_correct_text_view);
         mPiListView = (ListView) findViewById(R.id.pi_list_view);
+
+        mNumPadFrag = (NumPadFragment) getSupportFragmentManager().findFragmentById(R.id.num_pad);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -134,8 +137,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 return true;
             case R.id.action_refresh:
                 initializePiList();
-                NumPadFragment numPadFrag = (NumPadFragment) getSupportFragmentManager().findFragmentById(R.id.num_pad);
-                numPadFrag.clearRowString();
+                mNumPadFrag.clearRowString();
+                mNumPadFrag.enableNumPad();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -180,6 +183,9 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 // Show error in row
                 mAdapter.setInvalidRow(true);
                 updateListItem(mAdapter.getCount() - 1, displayRowString);
+
+                // Disable num pad
+                mNumPadFrag.disableNumPad();
 
                 // Open up game over dialog after 500ms delay
                 final Handler handler = new Handler();

@@ -22,6 +22,18 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
     OnNumberClickedListener mCallback;
     private SharedPreferences mSharedPrefs;
 
+    private Button mBtnOne;
+    private Button mBtnTwo;
+    private Button mBtnThree;
+    private Button mBtnFour;
+    private Button mBtnFive;
+    private Button mBtnSix;
+    private Button mBtnSeven;
+    private Button mBtnEight;
+    private Button mBtnNine;
+    private Button mBtnZero;
+    private Button mBtnDelete;
+
     public interface OnNumberClickedListener {
         void onNumberClicked(String rowString);
     }
@@ -33,30 +45,30 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         View view = inflater.inflate(R.layout.fragment_num_pad, container, false);
 
         // Initialize buttons
-        Button btnOne = (Button) view.findViewById(R.id.button_one);
-        Button btnTwo = (Button) view.findViewById(R.id.button_two);
-        Button btnThree = (Button) view.findViewById(R.id.button_three);
-        Button btnFour = (Button) view.findViewById(R.id.button_four);
-        Button btnFive = (Button) view.findViewById(R.id.button_five);
-        Button btnSix = (Button) view.findViewById(R.id.button_six);
-        Button btnSeven = (Button) view.findViewById(R.id.button_seven);
-        Button btnEight = (Button) view.findViewById(R.id.button_eight);
-        Button btnNine = (Button) view.findViewById(R.id.button_nine);
-        Button btnZero = (Button) view.findViewById(R.id.button_zero);
-        Button btnDelete = (Button) view.findViewById(R.id.button_delete);
+        mBtnOne = (Button) view.findViewById(R.id.button_one);
+        mBtnTwo = (Button) view.findViewById(R.id.button_two);
+        mBtnThree = (Button) view.findViewById(R.id.button_three);
+        mBtnFour = (Button) view.findViewById(R.id.button_four);
+        mBtnFive = (Button) view.findViewById(R.id.button_five);
+        mBtnSix = (Button) view.findViewById(R.id.button_six);
+        mBtnSeven = (Button) view.findViewById(R.id.button_seven);
+        mBtnEight = (Button) view.findViewById(R.id.button_eight);
+        mBtnNine = (Button) view.findViewById(R.id.button_nine);
+        mBtnZero = (Button) view.findViewById(R.id.button_zero);
+        mBtnDelete = (Button) view.findViewById(R.id.button_delete);
 
         // Set same on click listener for all buttons
-        btnOne.setOnClickListener(this);
-        btnTwo.setOnClickListener(this);
-        btnThree.setOnClickListener(this);
-        btnFour.setOnClickListener(this);
-        btnFive.setOnClickListener(this);
-        btnSix.setOnClickListener(this);
-        btnSeven.setOnClickListener(this);
-        btnEight.setOnClickListener(this);
-        btnNine.setOnClickListener(this);
-        btnZero.setOnClickListener(this);
-        btnDelete.setOnClickListener(this);
+        mBtnOne.setOnClickListener(this);
+        mBtnTwo.setOnClickListener(this);
+        mBtnThree.setOnClickListener(this);
+        mBtnFour.setOnClickListener(this);
+        mBtnFive.setOnClickListener(this);
+        mBtnSix.setOnClickListener(this);
+        mBtnSeven.setOnClickListener(this);
+        mBtnEight.setOnClickListener(this);
+        mBtnNine.setOnClickListener(this);
+        mBtnZero.setOnClickListener(this);
+        mBtnDelete.setOnClickListener(this);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
         mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW));
@@ -151,5 +163,33 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
 
     public void clearRowString() {
         mRowString = "";
+    }
+
+    public void disableNumPad() {
+        mBtnOne.setEnabled(false);
+        mBtnTwo.setEnabled(false);
+        mBtnThree.setEnabled(false);
+        mBtnFour.setEnabled(false);
+        mBtnFive.setEnabled(false);
+        mBtnSix.setEnabled(false);
+        mBtnSeven.setEnabled(false);
+        mBtnEight.setEnabled(false);
+        mBtnNine.setEnabled(false);
+        mBtnZero.setEnabled(false);
+        mBtnDelete.setEnabled(false);
+    }
+
+    public void enableNumPad() {
+        mBtnOne.setEnabled(true);
+        mBtnTwo.setEnabled(true);
+        mBtnThree.setEnabled(true);
+        mBtnFour.setEnabled(true);
+        mBtnFive.setEnabled(true);
+        mBtnSix.setEnabled(true);
+        mBtnSeven.setEnabled(true);
+        mBtnEight.setEnabled(true);
+        mBtnNine.setEnabled(true);
+        mBtnZero.setEnabled(true);
+        mBtnDelete.setEnabled(true);
     }
 }
