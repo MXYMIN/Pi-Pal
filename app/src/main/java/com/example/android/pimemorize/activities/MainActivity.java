@@ -1,6 +1,5 @@
 package com.example.android.pimemorize.activities;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -148,6 +147,9 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
     @Override
     public void onNumberClicked(String rowString) {
 
+        final int currentRow = mAdapter.getCount();
+        final int digitsCorrect = (mAdapter.getCount() - 1) * mDigitsPerRow;
+
         // Reset flag for error row to declare no error
         // Removes error display on row after user presses a button
         mAdapter.setInvalidRow(false);
@@ -176,8 +178,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 // Add a new placeholder row and smoothly scroll to last list item
                 mAdapter.add(mNewRowString);
                 mPiListView.smoothScrollToPosition(mAdapter.getCount());
-                mCurrentRowTextView.setText("current row: " + mAdapter.getCount());
-                mDigitsCorrectTextView.setText("digits correct: " + (mAdapter.getCount() - 1) * mDigitsPerRow);
+                mDigitsCorrectTextView.setText("digits correct: " + (digitsCorrect + mDigitsPerRow));
+                mCurrentRowTextView.setText("current row: " + (currentRow + 1));
             }
             else {
                 // Show error in row
@@ -192,7 +194,7 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        GameOverDialog dialog = GameOverDialog.newInstance(((mAdapter.getCount() - 1) * mDigitsPerRow), mAdapter.getCount());
+                        GameOverDialog dialog = GameOverDialog.newInstance(digitsCorrect, currentRow);
                         dialog.show(getFragmentManager(), "GameOverDialog");
                     }
                 }, 500);
