@@ -33,7 +33,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener {
+public class MainActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener, GameOverDialog.GameOverDialogListener {
 
     private String LOG_TAG = MainActivity.class.getSimpleName();
     private PiAdapter mAdapter;
@@ -220,4 +220,10 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         mPiListView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onRetryClick() {
+        initializePiList();
+        mNumPadFrag.clearRowString();
+        mNumPadFrag.enableNumPad();
+    }
 }
