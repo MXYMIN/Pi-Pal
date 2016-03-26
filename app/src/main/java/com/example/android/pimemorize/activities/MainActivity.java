@@ -1,9 +1,11 @@
 package com.example.android.pimemorize.activities;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
+import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -17,6 +19,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.pimemorize.Constants;
+import com.example.android.pimemorize.fragments.GameOverDialog;
 import com.example.android.pimemorize.fragments.NumPadFragment;
 import com.example.android.pimemorize.adapters.PiAdapter;
 import com.example.android.pimemorize.R;
@@ -177,6 +180,16 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
                 // Show error in row
                 mAdapter.setInvalidRow(true);
                 updateListItem(mAdapter.getCount() - 1, displayRowString);
+
+                // Open up game over dialog after 500ms delay
+                final Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        GameOverDialog dialog = GameOverDialog.newInstance(((mAdapter.getCount() - 1) * mDigitsPerRow), mAdapter.getCount());
+                        dialog.show(getFragmentManager(), "GameOverDialog");
+                    }
+                }, 500);
             }
         }
     }
