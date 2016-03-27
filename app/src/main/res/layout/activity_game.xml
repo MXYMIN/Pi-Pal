@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.MainActivity">
+    tools:context=".activities.GameActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -16,19 +16,19 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <include
-        android:id="@+id/top_list_header"
-        layout="@layout/list_header"
+        android:id="@+id/top_list_game_header"
+        layout="@layout/list_header_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/my_toolbar">
     </include>
 
     <ListView
-        android:id="@+id/pi_list_view"
+        android:id="@+id/pi_game_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/num_pad"
-        android:layout_below="@+id/top_list_header">
+        android:layout_below="@+id/top_list_game_header">
     </ListView>
 
     <fragment

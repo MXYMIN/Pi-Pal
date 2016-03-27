@@ -41,21 +41,21 @@
             android:id="@+id/menu_start_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="start"/>
+            android:text="Start"/>
 
         <Button
             android:layout_margin="8dp"
-            android:id="@+id/menu_practice_button"
+            android:id="@+id/menu_memorize_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="practice"/>
+            android:text="Memorize"/>
 
         <Button
             android:layout_margin="8dp"
             android:id="@+id/menu_scores_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="scores"/>
+            android:text="Scores"/>
 
     </LinearLayout>
 

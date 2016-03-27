@@ -1,5 +1,14 @@
 package com.example.android.pimemorize.helpers;
 
+import android.content.Context;
+import android.content.res.AssetManager;
+import android.util.Log;
+
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
 /**
@@ -57,5 +66,36 @@ public class StringHelper {
             str = addSpacesInBetweenCharacters(str);
         }
         return str;
+    }
+
+    public static String readFromFile(Context context, String fileName) {
+
+        String ret = "";
+
+        try {
+            AssetManager assetManager = context.getAssets();
+            InputStream inputStream = assetManager.open(fileName);
+
+            if ( inputStream != null ) {
+                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
+                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                String receiveString = "";
+                StringBuilder stringBuilder = new StringBuilder();
+
+                while ( (receiveString = bufferedReader.readLine()) != null ) {
+                    stringBuilder.append(receiveString);
+                }
+
+                inputStream.close();
+                ret = stringBuilder.toString();
+            }
+        }
+        catch (FileNotFoundException e) {
+            Log.e(context.getClass().getSimpleName(), "File not found: " + e.toString());
+        } catch (IOException e) {
+            Log.e(context.getClass().getSimpleName(), "Can not read file: " + e.toString());
+        }
+
+        return ret;
     }
 }

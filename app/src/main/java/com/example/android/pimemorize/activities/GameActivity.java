@@ -1,15 +1,12 @@
 package com.example.android.pimemorize.activities;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.AssetManager;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -24,18 +21,13 @@ import com.example.android.pimemorize.adapters.PiAdapter;
 import com.example.android.pimemorize.R;
 import com.example.android.pimemorize.helpers.StringHelper;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.regex.Pattern;
 
-public class MainActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener, GameOverDialog.GameOverDialogListener {
+public class GameActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener, GameOverDialog.GameOverDialogListener {
 
-    private String LOG_TAG = MainActivity.class.getSimpleName();
+    private String LOG_TAG = GameActivity.class.getSimpleName();
     private PiAdapter mAdapter;
     private ListView mPiListView;
     private ArrayList<String> mUserPiArrayList;
@@ -50,7 +42,7 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
@@ -60,17 +52,17 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
         }
 
         // Get references to UI elements
-        View mHeaderLayout = findViewById(R.id.top_list_header);
+        View mHeaderLayout = findViewById(R.id.top_list_game_header);
         mCurrentRowTextView = (TextView) mHeaderLayout.findViewById(R.id.current_row_text_view);
         mDigitsCorrectTextView = (TextView) mHeaderLayout.findViewById(R.id.digits_correct_text_view);
-        mPiListView = (ListView) findViewById(R.id.pi_list_view);
+        mPiListView = (ListView) findViewById(R.id.pi_game_list_view);
 
         mNumPadFrag = (NumPadFragment) getSupportFragmentManager().findFragmentById(R.id.num_pad);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
         // Read pi from file and remove decimal for easier string groupings
-        mPi = readPiFromFile(this);
+        mPi = StringHelper.readFromFile(this, "pi.txt");
         mPi = mPi.replace(".", "");
 
         initializePiList();
@@ -86,37 +78,6 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
             initializePiList();
         }
 
-    }
-
-    private String readPiFromFile(Context context) {
-
-        String ret = "";
-
-        try {
-            AssetManager assetManager = context.getAssets();
-            InputStream inputStream = assetManager.open("pi.txt");
-
-            if ( inputStream != null ) {
-                InputStreamReader inputStreamReader = new InputStreamReader(inputStream);
-                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                String receiveString = "";
-                StringBuilder stringBuilder = new StringBuilder();
-
-                while ( (receiveString = bufferedReader.readLine()) != null ) {
-                    stringBuilder.append(receiveString);
-                }
-
-                inputStream.close();
-                ret = stringBuilder.toString();
-            }
-        }
-        catch (FileNotFoundException e) {
-            Log.e(LOG_TAG, "File not found: " + e.toString());
-        } catch (IOException e) {
-            Log.e(LOG_TAG, "Can not read file: " + e.toString());
-        }
-
-        return ret;
     }
 
     private void updateListItem(int index, String str) {
