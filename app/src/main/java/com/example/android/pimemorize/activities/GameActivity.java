@@ -17,7 +17,7 @@ import android.widget.TextView;
 import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.fragments.GameOverDialog;
 import com.example.android.pimemorize.fragments.NumPadFragment;
-import com.example.android.pimemorize.adapters.PiAdapter;
+import com.example.android.pimemorize.adapters.PiGameAdapter;
 import com.example.android.pimemorize.R;
 import com.example.android.pimemorize.helpers.StringHelper;
 
@@ -28,7 +28,7 @@ import java.util.regex.Pattern;
 public class GameActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener, GameOverDialog.GameOverDialogListener {
 
     private String LOG_TAG = GameActivity.class.getSimpleName();
-    private PiAdapter mAdapter;
+    private PiGameAdapter mAdapter;
     private ListView mPiListView;
     private ArrayList<String> mUserPiArrayList;
     private ArrayList<String> mPiDigitsArrayList;
@@ -181,7 +181,7 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
         mUserPiArrayList.add(mNewRowString.replaceFirst(Pattern.quote(" "), "."));
 
         // Initialize the adapter and listview
-        mAdapter = new PiAdapter(this, mUserPiArrayList);
+        mAdapter = new PiGameAdapter(this, mUserPiArrayList);
         mPiListView.setAdapter(mAdapter);
     }
 

@@ -18,14 +18,14 @@ import java.util.ArrayList;
 /**
  * Created by michael on 2016-03-06.
  */
-public class PiAdapter extends ArrayAdapter<String> {
+public class PiGameAdapter extends ArrayAdapter<String> {
 
     // Index of last added item
     private int lastAdded;
     private Context mContext;
     private boolean mIsInvalidRow;
 
-    public PiAdapter(Context context, ArrayList<String> piRows) {
+    public PiGameAdapter(Context context, ArrayList<String> piRows) {
         super(context, 0, piRows);
         lastAdded = piRows.size() - 1;
         mContext = context;
