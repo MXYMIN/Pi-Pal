@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.android.pimemorize.R;
+import com.example.android.pimemorize.activities.MainMenuActivity;
 
 public class GameOverDialog extends DialogFragment {
 
@@ -19,7 +21,7 @@ public class GameOverDialog extends DialogFragment {
     private static final String KEY_FINAL_ROW = "KEY_FINAL_ROW";
 
     public interface GameOverDialogListener {
-        public void onRetryClick();
+        void onRetryClick();
     }
 
     GameOverDialogListener mListener;
@@ -43,6 +45,7 @@ public class GameOverDialog extends DialogFragment {
         TextView finalDigitsTextView = (TextView) view.findViewById(R.id.digits_dialog_text_view);
         TextView finalRowTextView = (TextView) view.findViewById(R.id.row_dialog_text_view);
         Button retryButton = (Button) view.findViewById(R.id.retry_button);
+        Button menuButton = (Button) view.findViewById(R.id.menu_button);
         Button reviewButton = (Button) view.findViewById(R.id.review_button);
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -59,6 +62,14 @@ public class GameOverDialog extends DialogFragment {
             public void onClick(View v) {
                 mListener.onRetryClick();
                 dialog.dismiss();
+            }
+        });
+
+        menuButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MainMenuActivity.class);
+                startActivity(intent);
             }
         });
 

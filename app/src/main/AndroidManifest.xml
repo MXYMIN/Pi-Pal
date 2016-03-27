@@ -10,16 +10,23 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.MainActivity"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"
+            android:parentActivityName=".activities.MainMenuActivity"
+            android:label="@string/start_mode">
+        </activity>
+        <activity
+            android:name=".activities.UserPreferencesActivity"
+            android:label="@string/action_settings"
+            android:screenOrientation="portrait"></activity>
+        <activity
+            android:name=".activities.MainMenuActivity"
+            android:screenOrientation="portrait"
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".activities.UserPreferencesActivity"
-            android:screenOrientation="portrait"
-            android:label="@string/action_settings">
         </activity>
     </application>
 

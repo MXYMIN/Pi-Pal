@@ -54,6 +54,8 @@ public class MainActivity extends AppCompatActivity implements NumPadFragment.On
 
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         // Get references to UI elements
         View mHeaderLayout = findViewById(R.id.top_list_header);
