@@ -1,16 +1,18 @@
 package com.example.android.pimemorize.activities;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.R;
-import com.example.android.pimemorize.adapters.PiGameAdapter;
 import com.example.android.pimemorize.adapters.PiMemorizeAdapter;
 import com.example.android.pimemorize.helpers.StringHelper;
 
@@ -49,6 +51,36 @@ public class MemorizeActivity extends AppCompatActivity {
 
         initializePiList();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // If digits per row setting was modified, reinitialize the pi list
+        if (Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW)) != mDigitsPerRow) {
+            initializePiList();
+        }
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_main_menu_activity, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_settings:
+                Intent intent = new Intent(this, UserPreferencesActivity.class);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private void initializePiList() {

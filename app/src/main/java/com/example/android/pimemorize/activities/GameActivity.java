@@ -88,7 +88,7 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        inflater.inflate(R.menu.menu_main_activity, menu);
+        inflater.inflate(R.menu.menu_game_activity, menu);
         return true;
     }
 
