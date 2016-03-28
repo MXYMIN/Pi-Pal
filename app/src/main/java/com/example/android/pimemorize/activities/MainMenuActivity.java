@@ -22,7 +22,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        Button startButton = (Button) findViewById(R.id.menu_start_button);
+        Button startButton = (Button) findViewById(R.id.menu_test_button);
         Button memorizeButton = (Button) findViewById(R.id.menu_memorize_button);
         //        Button scoresButton = (Button) findViewById(R.id.menu_scores_button);
 

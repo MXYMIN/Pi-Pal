@@ -14,7 +14,9 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.example.android.pimemorize.Constants;
@@ -48,8 +50,8 @@ public class MemorizeActivity extends AppCompatActivity {
 
         View listHeaderView = findViewById(R.id.list_goto_header);
         mGoToEditText = (EditText) listHeaderView.findViewById(R.id.go_to_edit_text);
-
         mPiListView = (ListView) findViewById(R.id.pi_memorize_list_view);
+        ImageButton goToRowButton = (ImageButton) listHeaderView.findViewById(R.id.go_to_row_button);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -59,6 +61,7 @@ public class MemorizeActivity extends AppCompatActivity {
 
         initializePiList();
 
+        // Change number of visible list items depending on edit text focus
         mGoToEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -67,6 +70,18 @@ public class MemorizeActivity extends AppCompatActivity {
                 } else {
                     hideKeyboard();
                     mAdapter.setNumberOfVisibleItems(6);
+                }
+            }
+        });
+
+        goToRowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mGoToEditText.getText() != null && !mGoToEditText.getText().toString().isEmpty()) {
+                    int listPosition = Integer.parseInt(mGoToEditText.getText().toString()) - 1;
+                    mPiListView.setSelection(listPosition);
+
+                    mGoToEditText.getText().clear();
                 }
             }
         });

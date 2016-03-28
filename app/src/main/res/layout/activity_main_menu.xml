@@ -19,7 +19,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_centerInParent="true"
+        android:paddingTop="50dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -38,10 +39,17 @@
 
         <Button
             android:layout_margin="8dp"
-            android:id="@+id/menu_start_button"
+            android:id="@+id/menu_test_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Start"/>
+            android:text="Test"/>
+
+        <Button
+            android:layout_margin="8dp"
+            android:id="@+id/menu_practice_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Practice"/>
 
         <Button
             android:layout_margin="8dp"
