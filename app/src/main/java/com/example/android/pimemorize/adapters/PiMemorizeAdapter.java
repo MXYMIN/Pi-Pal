@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class PiMemorizeAdapter extends ArrayAdapter<String> {
 
     private Context mContext;
+    private int mNumberOfVisibleRows = 6;
 
     public PiMemorizeAdapter(Context context, ArrayList<String> piRows) {
         super(context, 0, piRows);
@@ -38,7 +39,7 @@ public class PiMemorizeAdapter extends ArrayAdapter<String> {
         }
 
         // Set list item height programmatically to only show 6 items on screen at a time
-        int listItemHeight = parent.getHeight() / 6;
+        int listItemHeight = parent.getHeight() / mNumberOfVisibleRows;
         ViewGroup.LayoutParams params = convertView.getLayoutParams();
         params.height = listItemHeight;
         convertView.requestLayout();
@@ -60,4 +61,7 @@ public class PiMemorizeAdapter extends ArrayAdapter<String> {
         return convertView;
     }
 
+    public void setNumberOfVisibleItems(int numberOfVisibleItems) {
+        mNumberOfVisibleRows = numberOfVisibleItems;
+    }
 }

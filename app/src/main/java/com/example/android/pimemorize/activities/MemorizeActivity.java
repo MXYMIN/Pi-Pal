@@ -1,7 +1,9 @@
 package com.example.android.pimemorize.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,6 +11,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.example.android.pimemorize.Constants;
@@ -22,12 +28,11 @@ import java.util.Arrays;
 public class MemorizeActivity extends AppCompatActivity {
 
     private String mPi;
-    private ArrayList<String> mPiDigitsArrayList;
     private int mDigitsPerRow;
     private SharedPreferences mSharedPrefs;
-    private PiMemorizeAdapter mAdapter;
     private ListView mPiListView;
-
+    private PiMemorizeAdapter mAdapter;
+    private EditText mGoToEditText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +46,9 @@ public class MemorizeActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowHomeEnabled(true);
         }
 
+        View listHeaderView = findViewById(R.id.list_goto_header);
+        mGoToEditText = (EditText) listHeaderView.findViewById(R.id.go_to_edit_text);
+
         mPiListView = (ListView) findViewById(R.id.pi_memorize_list_view);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
@@ -51,6 +59,17 @@ public class MemorizeActivity extends AppCompatActivity {
 
         initializePiList();
 
+        mGoToEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    mAdapter.setNumberOfVisibleItems(3);
+                } else {
+                    hideKeyboard();
+                    mAdapter.setNumberOfVisibleItems(6);
+                }
+            }
+        });
     }
 
     @Override
@@ -88,10 +107,32 @@ public class MemorizeActivity extends AppCompatActivity {
         mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW));
 
         // Get pi and store digits in groups of x digits in an array list depending on user settings
-        mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(mPi, mDigitsPerRow)));
+        ArrayList<String> piDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(mPi, mDigitsPerRow)));
 
         // Initialize the adapter and listview
-        mAdapter = new PiMemorizeAdapter(this, mPiDigitsArrayList);
+        mAdapter = new PiMemorizeAdapter(this, piDigitsArrayList);
         mPiListView.setAdapter(mAdapter);
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mGoToEditText.getWindowToken(), 0);
+    }
+
+    // Remove edit text focus when background touched
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    hideKeyboard();
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
     }
 }

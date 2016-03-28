@@ -16,7 +16,7 @@
         app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <include
-        android:id="@+id/top_list_goto_header"
+        android:id="@+id/list_goto_header"
         layout="@layout/list_header_memorize"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -27,7 +27,7 @@
         android:id="@+id/pi_memorize_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/top_list_goto_header">
+        android:layout_below="@id/list_goto_header">
     </ListView>
 
 </RelativeLayout>
