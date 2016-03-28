@@ -8,6 +8,7 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.R;
@@ -79,7 +81,14 @@ public class MemorizeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mGoToEditText.getText() != null && !mGoToEditText.getText().toString().isEmpty()) {
                     int listPosition = Integer.parseInt(mGoToEditText.getText().toString()) - 1;
-                    mPiListView.setSelection(listPosition);
+
+                    if (listPosition <= mAdapter.getCount()) {
+                        mPiListView.setSelection(listPosition);
+                    }
+                    else {
+                        Toast toast = Toast.makeText(getApplicationContext(), "Only " + mAdapter.getCount() + " rows available. Try a smaller number.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
 
                     mGoToEditText.getText().clear();
                 }
