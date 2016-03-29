@@ -56,8 +56,7 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         View listHeaderView = findViewById(R.id.list_goto_header);
         mGoToEditText = (EditText) listHeaderView.findViewById(R.id.go_to_edit_text);
         ImageButton goToRowButton = (ImageButton) listHeaderView.findViewById(R.id.go_to_row_button);
-
-
+        
         mPiListView = (ListView) findViewById(R.id.pi_practice_list_view);
 
         mNumPadFrag = (NumPadFragment) getSupportFragmentManager().findFragmentById(R.id.num_pad);
@@ -69,6 +68,17 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         mPi = mPi.replace(".", "");
 
         initializePiList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        // If digits per row setting was modified, reinitialize the pi list
+        if (Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW)) != mDigitsPerRow) {
+            initializePiList();
+        }
+
     }
 
     @Override
