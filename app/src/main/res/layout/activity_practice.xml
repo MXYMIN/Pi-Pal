@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/practice_relative_layout"
     tools:context="com.example.android.pimemorize.activities.PracticeActivity">
 
     <android.support.v7.widget.Toolbar

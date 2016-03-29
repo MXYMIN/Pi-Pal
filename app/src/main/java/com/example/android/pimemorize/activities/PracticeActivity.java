@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -14,6 +15,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.example.android.pimemorize.Constants;
@@ -56,7 +58,7 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         View listHeaderView = findViewById(R.id.list_goto_header);
         mGoToEditText = (EditText) listHeaderView.findViewById(R.id.go_to_edit_text);
         ImageButton goToRowButton = (ImageButton) listHeaderView.findViewById(R.id.go_to_row_button);
-        
+
         mPiListView = (ListView) findViewById(R.id.pi_practice_list_view);
 
         mNumPadFrag = (NumPadFragment) getSupportFragmentManager().findFragmentById(R.id.num_pad);
@@ -159,6 +161,12 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
                 // Show error in row
                 mAdapter.setInvalidRow(true);
                 updateListItem(mAdapter.getCount() - 1, displayRowString);
+
+                RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.practice_relative_layout);
+                // Show snackbar with correct row digits
+                Snackbar snackbar = Snackbar
+                        .make(relativeLayout, (mPiDigitsArrayList.get(mAdapter.getCount() - 1).toString()), Snackbar.LENGTH_LONG);
+                snackbar.show();
             }
         }
     }
