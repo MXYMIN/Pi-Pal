@@ -15,7 +15,8 @@
         android:layout_toLeftOf="@+id/go_to_row_button"
         android:hint="Go to row"
         android:inputType="number"
-        android:lines="1" />
+        android:lines="1"
+        android:imeOptions="actionDone"/>
 
     <ImageButton
         android:id="@+id/go_to_row_button"

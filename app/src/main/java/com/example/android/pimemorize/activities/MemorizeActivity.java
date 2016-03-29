@@ -8,17 +8,20 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.Button;
+
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.android.pimemorize.Constants;
@@ -76,22 +79,23 @@ public class MemorizeActivity extends AppCompatActivity {
             }
         });
 
+        // Process edit text input on image button click
         goToRowButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mGoToEditText.getText() != null && !mGoToEditText.getText().toString().isEmpty()) {
-                    int listPosition = Integer.parseInt(mGoToEditText.getText().toString()) - 1;
+                goToInputtedRow();
+            }
+        });
 
-                    if (listPosition <= mAdapter.getCount()) {
-                        mPiListView.setSelection(listPosition);
-                    }
-                    else {
-                        Toast toast = Toast.makeText(getApplicationContext(), "Only " + mAdapter.getCount() + " rows available. Try a smaller number.", Toast.LENGTH_SHORT);
-                        toast.show();
-                    }
-
-                    mGoToEditText.getText().clear();
+        // Alternatively, user can press done on keyboard to process input
+        mGoToEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mGoToEditText.clearFocus();
+                    goToInputtedRow();
                 }
+                return false;
             }
         });
     }
@@ -158,5 +162,22 @@ public class MemorizeActivity extends AppCompatActivity {
             }
         }
         return super.dispatchTouchEvent( event );
+    }
+
+    // Set listview to display row based on user input
+    // Visually update entered listview item row by notifying adapter
+    private void goToInputtedRow() {
+        if (mGoToEditText.getText() != null && !mGoToEditText.getText().toString().isEmpty()) {
+            int listPosition = Integer.parseInt(mGoToEditText.getText().toString()) - 1;
+
+            if (listPosition <= mAdapter.getCount()) {
+                mAdapter.setSelectedListItem(listPosition);
+                mAdapter.notifyDataSetChanged();
+                mPiListView.setSelection(listPosition);
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), "Only " + mAdapter.getCount() + " rows available. Try a smaller number.", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        }
     }
 }

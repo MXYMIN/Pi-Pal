@@ -1,6 +1,7 @@
 package com.example.android.pimemorize.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,12 @@ import java.util.ArrayList;
  */
 public class PiMemorizeAdapter extends ArrayAdapter<String> {
 
+    private static final int DEFAULT_NUMBER_OF_VISIBLE_ROWS = 6;
+    private static final int CASE_NO_SELECTED_LIST_ITEM = -1;
+
     private Context mContext;
-    private int mNumberOfVisibleRows = 6;
+    private int mNumberOfVisibleRows = DEFAULT_NUMBER_OF_VISIBLE_ROWS;
+    private int mSelectedListItem = CASE_NO_SELECTED_LIST_ITEM;
 
     public PiMemorizeAdapter(Context context, ArrayList<String> piRows) {
         super(context, 0, piRows);
@@ -55,7 +60,18 @@ public class PiMemorizeAdapter extends ArrayAdapter<String> {
         }
 
         piDigits.setText(row);
-        piDigits.setTextColor(mContext.getResources().getColor(R.color.colorOldRow));
+
+        if (mSelectedListItem != CASE_NO_SELECTED_LIST_ITEM) {
+            if (position == mSelectedListItem) {
+                piDigits.setTextColor(mContext.getResources().getColor(R.color.colorCurrentRow));
+            }
+            else {
+                piDigits.setTextColor(mContext.getResources().getColor(R.color.colorOldRow));
+            }
+        }
+        else {
+            piDigits.setTextColor(mContext.getResources().getColor(R.color.colorOldRow));
+        }
 
         // Return the completed view to render on screen
         return convertView;
@@ -63,5 +79,9 @@ public class PiMemorizeAdapter extends ArrayAdapter<String> {
 
     public void setNumberOfVisibleItems(int numberOfVisibleItems) {
         mNumberOfVisibleRows = numberOfVisibleItems;
+    }
+
+    public void setSelectedListItem(int position) {
+        mSelectedListItem = position;
     }
 }

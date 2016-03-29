@@ -22,14 +22,23 @@ public class MainMenuActivity extends AppCompatActivity {
         Toolbar myToolbar = (Toolbar) findViewById(R.id.my_toolbar);
         setSupportActionBar(myToolbar);
 
-        Button startButton = (Button) findViewById(R.id.menu_test_button);
+        Button testButton = (Button) findViewById(R.id.menu_test_button);
+        Button practiceButton = (Button) findViewById(R.id.menu_practice_button);
         Button memorizeButton = (Button) findViewById(R.id.menu_memorize_button);
         //        Button scoresButton = (Button) findViewById(R.id.menu_scores_button);
 
-        startButton.setOnClickListener(new View.OnClickListener() {
+        testButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        practiceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, PracticeActivity.class);
                 startActivity(intent);
             }
         });

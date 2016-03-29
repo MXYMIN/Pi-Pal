@@ -12,7 +12,7 @@
             android:name=".activities.GameActivity"
             android:label="@string/start_mode"
             android:parentActivityName=".activities.MainMenuActivity"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activities.UserPreferencesActivity"
             android:label="@string/action_settings"
@@ -27,11 +27,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.MemorizeActivity"
+        <activity
+            android:name=".activities.MemorizeActivity"
             android:label="Memorize"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".activities.MainMenuActivity">
-        </activity>
+            android:parentActivityName=".activities.MainMenuActivity"
+            android:screenOrientation="portrait"></activity>
+        <activity android:name=".activities.PracticeActivity"></activity>
     </application>
 
 </manifest>
