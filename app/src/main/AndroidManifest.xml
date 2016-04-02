@@ -32,7 +32,11 @@
             android:label="Memorize"
             android:parentActivityName=".activities.MainMenuActivity"
             android:screenOrientation="portrait"></activity>
-        <activity android:name=".activities.PracticeActivity"></activity>
+        <activity android:name=".activities.PracticeActivity"
+            android:label="Practice"
+            android:parentActivityName=".activities.MainMenuActivity"
+            android:screenOrientation="portrait">
+        </activity>
     </application>
 
 </manifest>
