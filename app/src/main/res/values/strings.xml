@@ -12,5 +12,6 @@
         <item>4</item>
         <item>5</item>
     </string-array>
-
+    
+    <string name="practice_row_hint">Start at row</string>
 </resources>

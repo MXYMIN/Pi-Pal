@@ -65,6 +65,7 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         // Get references to UI elements
         View listHeaderView = findViewById(R.id.list_goto_header);
         mGoToEditText = (EditText) listHeaderView.findViewById(R.id.go_to_edit_text);
+        mGoToEditText.setHint(getResources().getString(R.string.practice_row_hint));
         ImageButton goToRowButton = (ImageButton) listHeaderView.findViewById(R.id.go_to_row_button);
 
         mPiListView = (ListView) findViewById(R.id.pi_practice_list_view);
