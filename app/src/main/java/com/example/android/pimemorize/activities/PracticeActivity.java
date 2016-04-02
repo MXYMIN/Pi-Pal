@@ -1,22 +1,30 @@
 package com.example.android.pimemorize.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Rect;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.Gravity;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.R;
@@ -69,7 +77,40 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         mPi = StringHelper.readFromFile(this, "pi.txt");
         mPi = mPi.replace(".", "");
 
-        initializePiList();
+        initializePiList(1);
+
+        // Change number of visible list items depending on edit text focus
+        mGoToEditText.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+//                    mAdapter.setNumberOfVisibleItems(3);
+                } else {
+                    hideKeyboard();
+//                    mAdapter.setNumberOfVisibleItems(6);
+                }
+            }
+        });
+
+        // Process edit text input on image button click
+        goToRowButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                goToInputtedRow();
+            }
+        });
+
+        // Alternatively, user can press done on keyboard to process input
+        mGoToEditText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    mGoToEditText.clearFocus();
+                    goToInputtedRow();
+                }
+                return false;
+            }
+        });
     }
 
     @Override
@@ -78,7 +119,7 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
 
         // If digits per row setting was modified, reinitialize the pi list
         if (Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW)) != mDigitsPerRow) {
-            initializePiList();
+            initializePiList(1);
         }
 
     }
@@ -107,7 +148,7 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         mAdapter.notifyDataSetChanged();
     }
 
-    private void initializePiList() {
+    private void initializePiList(int row) {
         // Update digits per row to be displayed
         mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW));
         mNewRowString = StringHelper.generateMaskedRowString("", mDigitsPerRow);
@@ -115,10 +156,16 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         // Get pi and store digits in groups of x digits in an array list depending on user settings
         mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(mPi, mDigitsPerRow)));
 
-        // Initialize the user's pi array list
-        mUserPiArrayList = new ArrayList<String>();
-        // Add first masked row with the decimal ex: ?.? ? ?
-        mUserPiArrayList.add(mNewRowString.replaceFirst(Pattern.quote(" "), "."));
+        if (row == 1) {
+            // Initialize the user's pi array list
+            mUserPiArrayList = new ArrayList<String>();
+            // Add first masked row with the decimal ex: ?.? ? ?
+            mUserPiArrayList.add(mNewRowString.replaceFirst(Pattern.quote(" "), "."));
+        }
+        else {
+            mUserPiArrayList = new ArrayList<String>(mPiDigitsArrayList.subList(0, row));
+            mUserPiArrayList.add(mNewRowString);
+        }
 
         // Initialize the adapter and listview
         mAdapter = new PiGameAdapter(this, mUserPiArrayList);
@@ -165,8 +212,47 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
                 RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.practice_relative_layout);
                 // Show snackbar with correct row digits
                 Snackbar snackbar = Snackbar
-                        .make(relativeLayout, (mPiDigitsArrayList.get(mAdapter.getCount() - 1).toString()), Snackbar.LENGTH_LONG);
+                        .make(relativeLayout, (StringHelper.addSpacesInBetweenCharacters(mPiDigitsArrayList.get(mAdapter.getCount() - 1).toString())), Snackbar.LENGTH_LONG);
+
                 snackbar.show();
+            }
+        }
+    }
+
+    private void hideKeyboard() {
+        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(mGoToEditText.getWindowToken(), 0);
+    }
+
+    // Remove edit text focus when background touched
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_DOWN) {
+            View v = getCurrentFocus();
+            if ( v instanceof EditText) {
+                Rect outRect = new Rect();
+                v.getGlobalVisibleRect(outRect);
+                if (!outRect.contains((int)event.getRawX(), (int)event.getRawY())) {
+                    v.clearFocus();
+                    hideKeyboard();
+                }
+            }
+        }
+        return super.dispatchTouchEvent( event );
+    }
+
+    // Set listview to display row based on user input
+    // Visually update entered listview item row by notifying adapter
+    private void goToInputtedRow() {
+        if (mGoToEditText.getText() != null && !mGoToEditText.getText().toString().isEmpty()) {
+            int listPosition = Integer.parseInt(mGoToEditText.getText().toString()) - 1;
+
+            if (listPosition <= mPiDigitsArrayList.size()) {
+                initializePiList(listPosition);
+                mPiListView.setSelection(listPosition);
+            } else {
+                Toast toast = Toast.makeText(getApplicationContext(), "Only " + mPiDigitsArrayList.size() + " rows available. Try a smaller number.", Toast.LENGTH_SHORT);
+                toast.show();
             }
         }
     }
