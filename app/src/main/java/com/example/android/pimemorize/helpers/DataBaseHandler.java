@@ -48,12 +48,21 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         db.close();
     }
 
-    public List<HighScore> getAllHighScores() {
-        List<HighScore> highScores = new ArrayList<HighScore>();
-        String selectQuery = "SELECT  * FROM " + TABLE_SCORES;
+    public ArrayList<HighScore> getAllHighScoresByScore() {
+        String query = "SELECT  * FROM " + TABLE_SCORES + " ORDER BY " + KEY_SCORE + " DESC";
+        return getAllHighScores(query);
+    }
+
+    public ArrayList<HighScore> getAllHighScoresByDate() {
+        String query = "SELECT  * FROM " + TABLE_SCORES + " ORDER BY " + "date(" + KEY_DATE + ")" + " DESC";
+        return getAllHighScores(query);
+    }
+
+    public ArrayList<HighScore> getAllHighScores(String query) {
+        ArrayList<HighScore> highScores = new ArrayList<HighScore>();
 
         SQLiteDatabase db = this.getWritableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
+        Cursor cursor = db.rawQuery(query, null);
 
         if (cursor.moveToFirst()) {
             do {
