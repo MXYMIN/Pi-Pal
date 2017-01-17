@@ -15,6 +15,11 @@ public class HighScore {
         this.date = date;
     }
 
+    public HighScore(int score, String date) {
+        this.score = score;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }
