@@ -172,7 +172,7 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
             mNumPadFrag.disableNumPad();
 
             Calendar c = Calendar.getInstance();
-            SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
             String formattedDate = df.format(c.getTime());
 
             DataBaseHandler db = new DataBaseHandler(this);
