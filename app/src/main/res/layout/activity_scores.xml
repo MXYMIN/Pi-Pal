@@ -56,4 +56,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/scores_list_header" />
+
+    <TextView android:id="@android:id/empty"
+        android:layout_below="@+id/scores_list_header"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:textAlignment="center"
+        android:gravity="center"
+        android:text="Scores from completed \ngames will be displayed here."/>
 </RelativeLayout>
