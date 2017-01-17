@@ -175,7 +175,7 @@ public class MemorizeActivity extends AppCompatActivity {
                 mAdapter.notifyDataSetChanged();
                 mPiListView.setSelection(listPosition);
             } else {
-                Toast toast = Toast.makeText(getApplicationContext(), String.format(getString(R.string.row_out_of_bounds_message), mAdapter.getCount()), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), String.format(getString(R.string.only_d_rows_available_message), mAdapter.getCount()), Toast.LENGTH_SHORT);
                 toast.show();
             }
         }

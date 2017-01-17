@@ -4,13 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Rect;
-import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -29,7 +27,6 @@ import android.widget.Toast;
 import com.example.android.pimemorize.Constants;
 import com.example.android.pimemorize.R;
 import com.example.android.pimemorize.adapters.PiGameAdapter;
-import com.example.android.pimemorize.fragments.GameOverDialog;
 import com.example.android.pimemorize.fragments.NumPadFragment;
 import com.example.android.pimemorize.helpers.StringHelper;
 
@@ -249,7 +246,7 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
                 initializePiList(listPosition);
                 mPiListView.setSelection(listPosition);
             } else {
-                Toast toast = Toast.makeText(getApplicationContext(), String.format(getString(R.string.row_out_of_bounds_message) ,mPiDigitsArrayList.size()), Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), String.format(getString(R.string.only_d_rows_available_message) ,mPiDigitsArrayList.size()), Toast.LENGTH_SHORT);
                 toast.show();
             }
         }

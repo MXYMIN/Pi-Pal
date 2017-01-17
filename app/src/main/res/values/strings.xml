@@ -18,7 +18,9 @@
     </string-array>
     
     <string name="practice_row_hint">Start at row</string>
-    <string name="row_out_of_bounds_message">Only %d rows available. Try a smaller number.</string>
+    <string name="only_d_rows_available_message">Only %d rows available. Try a smaller number.</string>
+    <string name="digits_correct_d">digits correct: %d</string>
+    <string name="current_row_d">current row: %d</string>
     <string name="scores_list_header_digits">digits</string>
     <string name="scores_list_header_date">date</string>
     <string name="empty_scores_list_message">Scores from completed \ngames will be displayed here.</string>

@@ -161,8 +161,8 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
             mAdapter.add(mNewRowString);
             mPiListView.smoothScrollToPosition(mAdapter.getCount());
             mDigitsCorrect += mDigitsPerRow;
-            mDigitsCorrectTextView.setText("digits correct: " + mDigitsCorrect);
-            mCurrentRowTextView.setText("current row: " + (mAdapter.getCount() + 1));
+            mDigitsCorrectTextView.setText(String.format(getString(R.string.digits_correct_d), mDigitsCorrect));
+            mCurrentRowTextView.setText(String.format(getString(R.string.current_row_d), (mAdapter.getCount())));
         }
         else {
             updateFinalScore(currentRow);
