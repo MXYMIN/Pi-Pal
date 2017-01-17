@@ -39,6 +39,7 @@ public class ScoresActivity extends AppCompatActivity {
         highScores = db.getAllHighScoresByScore();
         final ScoresAdapter adapter = new ScoresAdapter(this, highScores);
         ListView scoresListView = (ListView) findViewById(R.id.scores_list_view);
+        scoresListView.setEmptyView(findViewById(android.R.id.empty));
         scoresListView.setAdapter(adapter);
 
         final ToggleButton digitsHeader = (ToggleButton) findViewById(R.id.scores_list_header_digits);
