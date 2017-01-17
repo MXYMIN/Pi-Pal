@@ -41,7 +41,6 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
 
     private EditText mGoToEditText;
     private ListView mPiListView;
-    private NumPadFragment mNumPadFrag;
     private SharedPreferences mSharedPrefs;
     private String mPi;
     private int mDigitsPerRow;
@@ -69,8 +68,6 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
         ImageButton goToRowButton = (ImageButton) listHeaderView.findViewById(R.id.go_to_row_button);
 
         mPiListView = (ListView) findViewById(R.id.pi_practice_list_view);
-
-        mNumPadFrag = (NumPadFragment) getSupportFragmentManager().findFragmentById(R.id.num_pad);
 
         mSharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
 
@@ -252,7 +249,7 @@ public class PracticeActivity extends AppCompatActivity implements NumPadFragmen
                 initializePiList(listPosition);
                 mPiListView.setSelection(listPosition);
             } else {
-                Toast toast = Toast.makeText(getApplicationContext(), "Only " + mPiDigitsArrayList.size() + " rows available. Try a smaller number.", Toast.LENGTH_SHORT);
+                Toast toast = Toast.makeText(getApplicationContext(), String.format(getString(R.string.row_out_of_bounds_message) ,mPiDigitsArrayList.size()), Toast.LENGTH_SHORT);
                 toast.show();
             }
         }

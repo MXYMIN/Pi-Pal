@@ -30,9 +30,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="start"
-            android:text="digits"
-            android:textOn="digits"
-            android:textOff="digits"
+            android:text="@string/scores_list_header_digits"
+            android:textOn="@string/scores_list_header_digits"
+            android:textOff="@string/scores_list_header_digits"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:padding="16dp"/>
@@ -43,9 +43,9 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="end"
-            android:text="date"
-            android:textOn="date"
-            android:textOff="date"
+            android:text="@string/scores_list_header_date"
+            android:textOn="@string/scores_list_header_date"
+            android:textOff="@string/scores_list_header_date"
             android:textAlignment="center"
             android:textAllCaps="true"
             android:padding="16dp"/>
@@ -63,5 +63,5 @@
         android:layout_height="match_parent"
         android:textAlignment="center"
         android:gravity="center"
-        android:text="Scores from completed \ngames will be displayed here."/>
+        android:text="@string/empty_scores_list_message"/>
 </RelativeLayout>

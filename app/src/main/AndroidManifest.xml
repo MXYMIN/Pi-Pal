@@ -10,7 +10,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activities.GameActivity"
-            android:label="@string/start_mode"
+            android:label="@string/game_mode"
             android:parentActivityName=".activities.MainMenuActivity"
             android:screenOrientation="portrait" />
         <activity
@@ -28,20 +28,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.MemorizeActivity"
-            android:label="Memorize"
+            android:name=".activities.PracticeActivity"
+            android:label="@string/practice_mode"
             android:parentActivityName=".activities.MainMenuActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activities.PracticeActivity"
-            android:label="Practice"
+            android:name=".activities.MemorizeActivity"
+            android:label="@string/memorize_mode"
             android:parentActivityName=".activities.MainMenuActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
             android:name=".activities.ScoresActivity"
-            android:label="Scores"
+            android:label="@string/scores_mode"
             android:parentActivityName=".activities.MainMenuActivity"
             android:screenOrientation="portrait">
         </activity>

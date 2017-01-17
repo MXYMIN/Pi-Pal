@@ -26,13 +26,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:text="Pi Pal"
+            android:text="@string/app_name"
             android:textSize="40dp" />
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Your Pi Trainer"
+            android:text="@string/app_description"
             android:textAlignment="center"
             android:textSize="20dp"
             android:layout_margin="8dp"/>
@@ -42,28 +42,28 @@
             android:id="@+id/menu_test_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Test"/>
+            android:text="@string/game_mode"/>
 
         <Button
             android:layout_margin="8dp"
             android:id="@+id/menu_practice_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Practice"/>
+            android:text="@string/practice_mode"/>
 
         <Button
             android:layout_margin="8dp"
             android:id="@+id/menu_memorize_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Memorize"/>
+            android:text="@string/memorize_mode"/>
 
         <Button
             android:layout_margin="8dp"
             android:id="@+id/menu_scores_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Scores"/>
+            android:text="@string/scores_mode"/>
 
     </LinearLayout>
 
