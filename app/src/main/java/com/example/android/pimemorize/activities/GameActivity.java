@@ -31,7 +31,6 @@ import java.util.regex.Pattern;
 
 public class GameActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener, GameOverDialog.GameOverDialogListener {
 
-    private String LOG_TAG = GameActivity.class.getSimpleName();
     private PiGameAdapter mAdapter;
     private ListView mPiListView;
     private ArrayList<String> mUserPiArrayList;
@@ -39,6 +38,7 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
     private TextView mCurrentRowTextView;
     private TextView mDigitsCorrectTextView;
     private int mDigitsPerRow;
+    private int mDigitsCorrect;
     private String mNewRowString;
     private String mPi;
     private SharedPreferences mSharedPrefs;
@@ -114,67 +114,16 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
     }
 
     @Override
-    public void onNumberClicked(String rowString) {
-
-        final int currentRow = mAdapter.getCount();
-        final int digitsCorrect = (mAdapter.getCount() - 1) * mDigitsPerRow;
-
+    public void onNumberClicked(String currentRow) {
         // Reset flag for error row to declare no error
         // Removes error display on row after user presses a button
         mAdapter.setInvalidRow(false);
-
-        // Smoothly scroll to bottom of list
         mPiListView.smoothScrollToPosition(mAdapter.getCount());
-
-        // String that is being displayed with trailing '?'s
-        String displayRowString = rowString;
-
-        // Generate the masked string with spaces in between
-        displayRowString = StringHelper.generateMaskedRowString(displayRowString, mDigitsPerRow);
-
-        // Add the decimal point for the first line '3.141'
-        if (mAdapter.getCount() == 1) {
-            displayRowString = displayRowString.replaceFirst(" ", ".");
-        }
-
-        // Update list item visually after user's input
+        String displayRowString = getDisplayRowString(currentRow);
         updateListItem(mAdapter.getCount() - 1, displayRowString);
-
         // Validate user's input when current row is filled
-        if (rowString.length() == mDigitsPerRow) {
-            // Compare user's input with correct digits of pi
-            if (rowString.equals(mPiDigitsArrayList.get(mAdapter.getCount() - 1))) {
-                // Add a new placeholder row and smoothly scroll to last list item
-                mAdapter.add(mNewRowString);
-                mPiListView.smoothScrollToPosition(mAdapter.getCount());
-                mDigitsCorrectTextView.setText("digits correct: " + (digitsCorrect + mDigitsPerRow));
-                mCurrentRowTextView.setText("current row: " + (currentRow + 1));
-            }
-            else {
-                // Show error in row
-                mAdapter.setInvalidRow(true);
-                updateListItem(mAdapter.getCount() - 1, displayRowString);
-
-                // Disable num pad
-                mNumPadFrag.disableNumPad();
-
-                Calendar c = Calendar.getInstance();
-                SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
-                String formattedDate = df.format(c.getTime());
-
-                DataBaseHandler db = new DataBaseHandler(this);
-                db.addHighScore(new HighScore(digitsCorrect, formattedDate));
-
-                // Open up game over dialog after 500ms delay
-                final Handler handler = new Handler();
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        GameOverDialog dialog = GameOverDialog.newInstance(digitsCorrect, currentRow);
-                        dialog.show(getFragmentManager(), "GameOverDialog");
-                    }
-                }, 500);
-            }
+        if (currentRow.length() == mDigitsPerRow) {
+            validateRow(currentRow, displayRowString);
         }
     }
 
@@ -182,18 +131,75 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
         // Update digits per row to be displayed
         mDigitsPerRow = Integer.parseInt(mSharedPrefs.getString(getResources().getString(R.string.pref_key_digits_per_row), Constants.DEFAULT_DIGITS_PER_ROW));
         mNewRowString = StringHelper.generateMaskedRowString("", mDigitsPerRow);
+        mDigitsCorrect = 0;
 
         // Get pi and store digits in groups of x digits in an array list depending on user settings
         mPiDigitsArrayList = new ArrayList<String>(Arrays.asList(StringHelper.splitStringEvery(mPi, mDigitsPerRow)));
 
-        // Initialize the user's pi array list
         mUserPiArrayList = new ArrayList<String>();
-        // Add first masked row with the decimal ex: ?.? ? ?
         mUserPiArrayList.add(mNewRowString.replaceFirst(Pattern.quote(" "), "."));
 
-        // Initialize the adapter and listview
         mAdapter = new PiGameAdapter(this, mUserPiArrayList);
         mPiListView.setAdapter(mAdapter);
+    }
+
+    private String getDisplayRowString(String currentRow) {
+        String displayRowString = currentRow;
+        displayRowString = StringHelper.generateMaskedRowString(displayRowString, mDigitsPerRow);
+
+        // Add the decimal point for the first line '3.141'
+        if (mAdapter.getCount() == 1) {
+            displayRowString = displayRowString.replaceFirst(" ", ".");
+        }
+
+        return displayRowString;
+    }
+
+    private void validateRow(String currentRow, String displayRowString) {
+        if (currentRow.equals(mPiDigitsArrayList.get(mAdapter.getCount() - 1))) {
+            // Add a new placeholder row and smoothly scroll to last list item
+            mAdapter.add(mNewRowString);
+            mPiListView.smoothScrollToPosition(mAdapter.getCount());
+            mDigitsCorrect += mDigitsPerRow;
+            mDigitsCorrectTextView.setText("digits correct: " + mDigitsCorrect);
+            mCurrentRowTextView.setText("current row: " + (mAdapter.getCount() + 1));
+        }
+        else {
+            updateFinalScore(currentRow);
+            mAdapter.setInvalidRow(true);
+            updateListItem(mAdapter.getCount() - 1, displayRowString);
+
+            mNumPadFrag.disableNumPad();
+
+            Calendar c = Calendar.getInstance();
+            SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+            String formattedDate = df.format(c.getTime());
+
+            DataBaseHandler db = new DataBaseHandler(this);
+            db.addHighScore(new HighScore(mDigitsCorrect, formattedDate));
+
+            // Open up game over dialog after 500ms delay
+            final Handler handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    GameOverDialog dialog = GameOverDialog.newInstance(mDigitsCorrect, mAdapter.getCount());
+                    dialog.show(getFragmentManager(), "GameOverDialog");
+                }
+            }, 500);
+        }
+    }
+
+    private void updateFinalScore(String currentRow) {
+        int bonus = 0;
+        for (int i = 0; i < mDigitsPerRow; i++) {
+            if (currentRow.charAt(i) == mPiDigitsArrayList.get(mAdapter.getCount() - 1).charAt(i)) {
+                bonus++;
+            } else {
+                break;
+            }
+        }
+        mDigitsCorrect += bonus;
     }
 
     @Override
