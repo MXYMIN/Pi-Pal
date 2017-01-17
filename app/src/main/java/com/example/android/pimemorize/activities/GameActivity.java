@@ -15,14 +15,18 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.android.pimemorize.Constants;
+import com.example.android.pimemorize.HighScore;
 import com.example.android.pimemorize.fragments.GameOverDialog;
 import com.example.android.pimemorize.fragments.NumPadFragment;
 import com.example.android.pimemorize.adapters.PiGameAdapter;
 import com.example.android.pimemorize.R;
+import com.example.android.pimemorize.helpers.DataBaseHandler;
 import com.example.android.pimemorize.helpers.StringHelper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.regex.Pattern;
 
 public class GameActivity extends AppCompatActivity implements NumPadFragment.OnNumberClickedListener, GameOverDialog.GameOverDialogListener {
@@ -153,6 +157,13 @@ public class GameActivity extends AppCompatActivity implements NumPadFragment.On
 
                 // Disable num pad
                 mNumPadFrag.disableNumPad();
+
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("yyyy-mm-dd");
+                String formattedDate = df.format(c.getTime());
+
+                DataBaseHandler db = new DataBaseHandler(this);
+                db.addHighScore(new HighScore(digitsCorrect, formattedDate));
 
                 // Open up game over dialog after 500ms delay
                 final Handler handler = new Handler();
