@@ -16,7 +16,6 @@ import com.example.android.pimemorize.helpers.StringHelper;
 
 public class NumPadFragment extends Fragment implements View.OnClickListener{
 
-    // Keep track of digits in current row of pi
     private String mRowString = "";
     private int mDigitsPerRow;
     OnNumberClickedListener mCallback;
@@ -41,10 +40,8 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_num_pad, container, false);
 
-        // Initialize buttons
         mBtnOne = (Button) view.findViewById(R.id.button_one);
         mBtnTwo = (Button) view.findViewById(R.id.button_two);
         mBtnThree = (Button) view.findViewById(R.id.button_three);
@@ -57,7 +54,6 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
         mBtnZero = (Button) view.findViewById(R.id.button_zero);
         mBtnDelete = (Button) view.findViewById(R.id.button_delete);
 
-        // Set same on click listener for all buttons
         mBtnOne.setOnClickListener(this);
         mBtnTwo.setOnClickListener(this);
         mBtnThree.setOnClickListener(this);
@@ -157,10 +153,8 @@ public class NumPadFragment extends Fragment implements View.OnClickListener{
                 break;
             }
         }
-        // Notify activity of new row string
         mCallback.onNumberClicked(mRowString);
         if (mRowString.length() == mDigitsPerRow) {
-            // Reset string for current row
             mRowString = "";
         }
     }

@@ -9,7 +9,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.example.android.pimemorize.HighScore;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DataBaseHandler extends SQLiteOpenHelper {
     private static final int DATABASE_VERSION = 1;

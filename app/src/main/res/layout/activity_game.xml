@@ -20,16 +20,14 @@
         layout="@layout/list_header_game"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/my_toolbar">
-    </include>
+        android:layout_below="@id/my_toolbar"></include>
 
     <ListView
         android:id="@+id/pi_game_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/num_pad"
-        android:layout_below="@+id/top_list_game_header">
-    </ListView>
+        android:layout_below="@+id/top_list_game_header"></ListView>
 
     <fragment
         android:id="@+id/num_pad"
@@ -38,7 +36,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="16dp"
-        tools:layout="@layout/fragment_num_pad">
-    </fragment>
+        tools:layout="@layout/fragment_num_pad"></fragment>
 
 </RelativeLayout>

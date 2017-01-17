@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/pi_row_digits_text_view"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginLeft="12dp"
     android:layout_marginRight="12dp"
-    android:lines="1"
-    android:textColor="@color/colorCurrentRow"
     android:fontFamily="monospace"
+    android:gravity="center_vertical"
+    android:lines="1"
     android:text="3.1 4 1"
     android:textAlignment="center"
-    android:gravity="center_vertical"
-    android:textSize="48sp"/>
+    android:textColor="@color/colorCurrentRow"
+    android:textSize="48sp" />
 
 

@@ -11,9 +11,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.regex.Pattern;
 
-/**
- * Created by michael on 2016-03-13.
- */
 public class StringHelper {
     public static String[] splitStringEvery(String str, int interval) {
 
