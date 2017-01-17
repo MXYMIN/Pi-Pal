@@ -15,9 +15,6 @@ import com.example.android.pimemorize.helpers.StringHelper;
 
 import java.util.ArrayList;
 
-/**
- * Created by michael on 2016-03-06.
- */
 public class PiGameAdapter extends ArrayAdapter<String> {
 
     // Index of last added item

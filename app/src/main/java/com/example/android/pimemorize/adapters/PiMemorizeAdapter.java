@@ -13,9 +13,6 @@ import com.example.android.pimemorize.helpers.StringHelper;
 
 import java.util.ArrayList;
 
-/**
- * Created by michael on 2016-03-27.
- */
 public class PiMemorizeAdapter extends ArrayAdapter<String> {
 
     private static final int DEFAULT_NUMBER_OF_VISIBLE_ROWS = 6;
