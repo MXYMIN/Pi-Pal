@@ -25,7 +25,7 @@ public class MainMenuActivity extends AppCompatActivity {
         Button testButton = (Button) findViewById(R.id.menu_test_button);
         Button practiceButton = (Button) findViewById(R.id.menu_practice_button);
         Button memorizeButton = (Button) findViewById(R.id.menu_memorize_button);
-        //        Button scoresButton = (Button) findViewById(R.id.menu_scores_button);
+        Button scoresButton = (Button) findViewById(R.id.menu_scores_button);
 
         testButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,6 +47,14 @@ public class MainMenuActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainMenuActivity.this, MemorizeActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        scoresButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainMenuActivity.this, ScoresActivity.class);
                 startActivity(intent);
             }
         });
