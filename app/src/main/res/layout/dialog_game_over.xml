@@ -77,7 +77,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="retry"
-        android:textAllCaps="true" />
+        android:textColor="@color/colorTextButton"
+        android:textAllCaps="true"
+        android:theme="@style/ButtonBlue"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -89,14 +91,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="menu"
-            android:textAllCaps="true" />
+            android:textColor="@color/colorTextButton"
+            android:textAllCaps="true"
+            android:theme="@style/ButtonBlue"/>
 
         <Button
             android:id="@+id/review_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="review" />
+            android:text="review"
+            android:textColor="@color/colorTextButton"
+            android:theme="@style/ButtonBlue"/>
 
     </LinearLayout>
 
