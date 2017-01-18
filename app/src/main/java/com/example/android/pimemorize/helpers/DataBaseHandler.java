@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.android.pimemorize.HighScore;
+import com.example.android.pimemorize.models.HighScore;
 
 import java.util.ArrayList;
 

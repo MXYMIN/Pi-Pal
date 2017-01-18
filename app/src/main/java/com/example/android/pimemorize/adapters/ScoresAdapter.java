@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.android.pimemorize.HighScore;
+import com.example.android.pimemorize.models.HighScore;
 import com.example.android.pimemorize.R;
 
 import java.util.ArrayList;

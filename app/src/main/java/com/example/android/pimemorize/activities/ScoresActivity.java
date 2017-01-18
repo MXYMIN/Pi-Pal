@@ -7,15 +7,12 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
-import com.example.android.pimemorize.HighScore;
+import com.example.android.pimemorize.models.HighScore;
 import com.example.android.pimemorize.R;
 import com.example.android.pimemorize.adapters.ScoresAdapter;
 import com.example.android.pimemorize.helpers.DataBaseHandler;
 
-import org.w3c.dom.Text;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class ScoresActivity extends AppCompatActivity {
     ArrayList<HighScore> highScores;
