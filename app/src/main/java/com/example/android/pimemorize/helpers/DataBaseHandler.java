@@ -41,19 +41,19 @@ public class DataBaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_SCORE, highScore.getScore());
-        values.put(KEY_DATE, highScore.getDate().toString());
+        values.put(KEY_DATE, highScore.getDate());
 
         db.insert(TABLE_SCORES, null, values);
         db.close();
     }
 
     public ArrayList<HighScore> getAllHighScoresByScore() {
-        String query = "SELECT  * FROM " + TABLE_SCORES + " ORDER BY " + KEY_SCORE + " DESC";
+        String query = "SELECT * FROM " + TABLE_SCORES + " ORDER BY " + KEY_SCORE + " DESC";
         return getAllHighScores(query);
     }
 
     public ArrayList<HighScore> getAllHighScoresByDate() {
-        String query = "SELECT  * FROM " + TABLE_SCORES + " ORDER BY " + "date(" + KEY_DATE + ")" + " DESC";
+        String query = "SELECT * FROM " + TABLE_SCORES + " ORDER BY " + "date(" + KEY_DATE + ")" + " DESC";
         return getAllHighScores(query);
     }
 
@@ -73,7 +73,9 @@ public class DataBaseHandler extends SQLiteOpenHelper {
                 highScores.add(highScore);
             } while (cursor.moveToNext());
         }
-
+        cursor.close();
+        db.close();
         return highScores;
     }
+
 }
