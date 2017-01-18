@@ -8,7 +8,7 @@
     <color name="colorSecondaryText">#757575</color>
     <color name="colorTextButton">#FAFAFA</color>
     <color name="colorTextIcon">#FAFAFA</color>
-    <color name="colorDivider">#B6B6B6</color>
+    <color name="colorDivider">#E0E0E0</color>
     <color name="colorCurrentRow">#009688</color>
     <color name="colorOldRow">#727272</color>
     <color name="colorError">#C62828</color>
