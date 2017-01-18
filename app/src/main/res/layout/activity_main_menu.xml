@@ -42,28 +42,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/game_mode" />
+            android:text="@string/game_mode"
+            android:textColor="@color/colorTextButton"
+            android:theme="@style/ButtonBlue"/>
 
         <Button
             android:id="@+id/menu_practice_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/practice_mode" />
+            android:text="@string/practice_mode"
+            android:textColor="@color/colorTextButton"
+            android:theme="@style/ButtonBlue"/>
 
         <Button
             android:id="@+id/menu_memorize_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/memorize_mode" />
+            android:text="@string/memorize_mode"
+            android:textColor="@color/colorTextButton"
+            android:theme="@style/ButtonBlue"/>
 
         <Button
             android:id="@+id/menu_scores_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:text="@string/scores_mode" />
+            android:text="@string/scores_mode"
+            android:textColor="@color/colorTextButton"
+            android:theme="@style/ButtonBlue"/>
 
     </LinearLayout>
 
