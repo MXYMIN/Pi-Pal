@@ -2,6 +2,7 @@ package com.example.android.pimemorize.adapters;
 
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +12,11 @@ import android.widget.TextView;
 import com.example.android.pimemorize.models.HighScore;
 import com.example.android.pimemorize.R;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ScoresAdapter extends ArrayAdapter<HighScore> {
     public ScoresAdapter(Context context, ArrayList<HighScore> highScores) {
@@ -30,7 +35,17 @@ public class ScoresAdapter extends ArrayAdapter<HighScore> {
         TextView dateTextView = (TextView) convertView.findViewById(R.id.scores_list_item_date);
 
         digitsTextView.setText(String.valueOf(highScore.getScore()));
-        dateTextView.setText(highScore.getDate());
+
+        DateFormat oldFormat = new SimpleDateFormat("yyyy-MM-dd");
+        Date date = new Date();
+        try{
+            date = oldFormat.parse(highScore.getDate());
+        } catch (ParseException e) {
+            Log.e("ScoresAdapter", "Cannot parse date: " + highScore.getDate());
+        }
+        DateFormat newFormat = DateFormat.getDateInstance();
+        String dateString = newFormat.format(date);
+        dateTextView.setText(dateString);
 
         return convertView;
     }
