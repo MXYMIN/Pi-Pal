@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.activities;
+package com.mxymin.android.pipal.activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.ToggleButton;
 
-import com.example.android.pimemorize.models.HighScore;
-import com.example.android.pimemorize.R;
-import com.example.android.pimemorize.adapters.ScoresAdapter;
-import com.example.android.pimemorize.helpers.DataBaseHandler;
+import com.mxymin.android.pipal.models.HighScore;
+import com.mxymin.android.pipal.R;
+import com.mxymin.android.pipal.adapters.ScoresAdapter;
+import com.mxymin.android.pipal.helpers.DataBaseHandler;
 
 import java.util.ArrayList;
 

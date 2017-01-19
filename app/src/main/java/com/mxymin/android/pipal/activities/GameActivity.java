@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.activities;
+package com.mxymin.android.pipal.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,14 +14,14 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.example.android.pimemorize.Constants;
-import com.example.android.pimemorize.models.HighScore;
-import com.example.android.pimemorize.fragments.GameOverDialog;
-import com.example.android.pimemorize.fragments.NumPadFragment;
-import com.example.android.pimemorize.adapters.PiGameAdapter;
-import com.example.android.pimemorize.R;
-import com.example.android.pimemorize.helpers.DataBaseHandler;
-import com.example.android.pimemorize.helpers.StringHelper;
+import com.mxymin.android.pipal.Constants;
+import com.mxymin.android.pipal.models.HighScore;
+import com.mxymin.android.pipal.fragments.GameOverDialog;
+import com.mxymin.android.pipal.fragments.NumPadFragment;
+import com.mxymin.android.pipal.adapters.PiGameAdapter;
+import com.mxymin.android.pipal.R;
+import com.mxymin.android.pipal.helpers.DataBaseHandler;
+import com.mxymin.android.pipal.helpers.StringHelper;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;

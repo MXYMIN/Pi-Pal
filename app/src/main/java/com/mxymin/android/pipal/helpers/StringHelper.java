@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.helpers;
+package com.mxymin.android.pipal.helpers;
 
 import android.content.Context;
 import android.content.res.AssetManager;

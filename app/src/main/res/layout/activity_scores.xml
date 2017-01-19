@@ -5,7 +5,7 @@
     android:id="@+id/activity_scores"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.pimemorize.activities.ScoresActivity">
+    tools:context="com.mxymin.android.pipal.activities.ScoresActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"

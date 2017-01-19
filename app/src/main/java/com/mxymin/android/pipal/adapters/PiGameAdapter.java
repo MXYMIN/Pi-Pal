@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.adapters;
+package com.mxymin.android.pipal.adapters;
 
 import android.content.Context;
 import android.text.Html;
@@ -9,9 +9,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-import com.example.android.pimemorize.Constants;
-import com.example.android.pimemorize.R;
-import com.example.android.pimemorize.helpers.StringHelper;
+import com.mxymin.android.pipal.R;
+import com.mxymin.android.pipal.helpers.StringHelper;
 
 import java.util.ArrayList;
 

@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.activities;
+package com.mxymin.android.pipal.activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.example.android.pimemorize.R;
+import com.mxymin.android.pipal.R;
 
 public class MainMenuActivity extends AppCompatActivity {
 

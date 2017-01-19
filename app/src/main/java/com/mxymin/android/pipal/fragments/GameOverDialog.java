@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.fragments;
+package com.mxymin.android.pipal.fragments;
 
 
 import android.app.Activity;
@@ -12,8 +12,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.example.android.pimemorize.R;
-import com.example.android.pimemorize.activities.MainMenuActivity;
+import com.mxymin.android.pipal.R;
+import com.mxymin.android.pipal.activities.MainMenuActivity;
 
 public class GameOverDialog extends DialogFragment {
 

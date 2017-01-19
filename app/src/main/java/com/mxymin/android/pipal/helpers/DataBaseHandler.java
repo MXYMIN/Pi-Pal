@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.helpers;
+package com.mxymin.android.pipal.helpers;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
-import com.example.android.pimemorize.models.HighScore;
+import com.mxymin.android.pipal.models.HighScore;
 
 import java.util.ArrayList;
 

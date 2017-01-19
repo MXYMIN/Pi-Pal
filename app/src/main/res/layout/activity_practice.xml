@@ -5,7 +5,7 @@
     android:id="@+id/practice_relative_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.android.pimemorize.activities.PracticeActivity">
+    tools:context="com.mxymin.android.pipal.activities.PracticeActivity">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/my_toolbar"
@@ -32,7 +32,7 @@
 
     <fragment
         android:id="@+id/num_pad"
-        android:name="com.example.android.pimemorize.fragments.NumPadFragment"
+        android:name="com.mxymin.android.pipal.fragments.NumPadFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.activities;
+package com.mxymin.android.pipal.activities;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -25,7 +25,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
-import com.example.android.pimemorize.R;
+import com.mxymin.android.pipal.R;
 
 public class UserPreferencesActivity extends PreferenceActivity {
 

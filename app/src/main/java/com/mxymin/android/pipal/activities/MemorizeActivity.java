@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.activities;
+package com.mxymin.android.pipal.activities;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,10 +24,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.android.pimemorize.Constants;
-import com.example.android.pimemorize.R;
-import com.example.android.pimemorize.adapters.PiMemorizeAdapter;
-import com.example.android.pimemorize.helpers.StringHelper;
+import com.mxymin.android.pipal.Constants;
+import com.mxymin.android.pipal.R;
+import com.mxymin.android.pipal.adapters.PiMemorizeAdapter;
+import com.mxymin.android.pipal.helpers.StringHelper;
 
 import java.util.ArrayList;
 import java.util.Arrays;

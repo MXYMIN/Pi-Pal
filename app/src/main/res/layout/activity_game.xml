@@ -31,7 +31,7 @@
 
     <fragment
         android:id="@+id/num_pad"
-        android:name="com.example.android.pimemorize.fragments.NumPadFragment"
+        android:name="com.mxymin.android.pipal.fragments.NumPadFragment"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

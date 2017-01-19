@@ -1,4 +1,4 @@
-package com.example.android.pimemorize;
+package com.mxymin.android.pipal;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

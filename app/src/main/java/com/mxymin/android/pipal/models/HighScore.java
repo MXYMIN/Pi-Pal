@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.models;
+package com.mxymin.android.pipal.models;
 
 public class HighScore {
     int id;

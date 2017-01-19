@@ -1,4 +1,4 @@
-package com.example.android.pimemorize.fragments;
+package com.mxymin.android.pipal.fragments;
 
 import android.app.Activity;
 import android.content.SharedPreferences;
@@ -10,9 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
-import com.example.android.pimemorize.Constants;
-import com.example.android.pimemorize.R;
-import com.example.android.pimemorize.helpers.StringHelper;
+import com.mxymin.android.pipal.Constants;
+import com.mxymin.android.pipal.R;
+import com.mxymin.android.pipal.helpers.StringHelper;
 
 public class NumPadFragment extends Fragment implements View.OnClickListener{
 

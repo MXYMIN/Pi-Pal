@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.android.pimemorize">
+    package="com.mxymin.android.pipal">
 
     <application
         android:allowBackup="true"
@@ -9,16 +9,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".activities.GameActivity"
+            android:name="com.mxymin.android.pipal.activities.GameActivity"
             android:label="@string/game_mode"
-            android:parentActivityName=".activities.MainMenuActivity"
+            android:parentActivityName="com.mxymin.android.pipal.activities.MainMenuActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.UserPreferencesActivity"
+            android:name="com.mxymin.android.pipal.activities.UserPreferencesActivity"
             android:label="@string/action_settings"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activities.MainMenuActivity"
+            android:name="com.mxymin.android.pipal.activities.MainMenuActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait">
             <intent-filter>
@@ -28,21 +28,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activities.PracticeActivity"
+            android:name="com.mxymin.android.pipal.activities.PracticeActivity"
             android:label="@string/practice_mode"
-            android:parentActivityName=".activities.MainMenuActivity"
+            android:parentActivityName="com.mxymin.android.pipal.activities.MainMenuActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activities.MemorizeActivity"
+            android:name="com.mxymin.android.pipal.activities.MemorizeActivity"
             android:label="@string/memorize_mode"
-            android:parentActivityName=".activities.MainMenuActivity"
+            android:parentActivityName="com.mxymin.android.pipal.activities.MainMenuActivity"
             android:screenOrientation="portrait">
         </activity>
         <activity
-            android:name=".activities.ScoresActivity"
+            android:name="com.mxymin.android.pipal.activities.ScoresActivity"
             android:label="@string/scores_mode"
-            android:parentActivityName=".activities.MainMenuActivity"
+            android:parentActivityName="com.mxymin.android.pipal.activities.MainMenuActivity"
             android:screenOrientation="portrait">
         </activity>
     </application>
